@@ -1,0 +1,124 @@
+﻿@using Web.Models
+@model ItemGioHang
+
+@{
+    ViewBag.Title = "UpdateGioHang";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+    List<ItemGioHang> lstGH = ViewBag.lstgiohang as List<ItemGioHang>;
+}
+
+<div class="check">
+    <h1>Túi Hàng Của Tôi</h1>
+    <div class="col-md-9 cart-items">
+        @foreach (var item in lstGH)
+        {
+            if (Model.MaSP == item.MaSP)
+            {
+                using (Html.BeginForm("CapnhatGH", "GioHang"))
+                {
+            <div class="cart-header">
+                <div class="close1"> </div>
+                <div class="cart-sec simpleCart_shelfItem">
+                    <div class="cart-item cyc">
+                        <img src="@Url.Content("~/Content/images/" + item.HinhAnh)" class="img-responsive" alt="">
+                    </div>
+                    <div class="cart-item-info">
+                        <h3 style="text-align:left"><a href="#">@item.TenSP</a><span>Mã Sản Phẩm: @item.MaSP @Html.Hidden("MaSP",item.MaSP)</span></h3>
+                        <ul class="qty" style="text-align:left">
+                            <li><p>Giá : @item.ThanhTien</p></li>
+                            <li>
+                                <span>  Số Lượng  @Html.TextBox("SoLuong", @item.SoLuong, new { @class = "SoLuong" })</span>
+                                <p id="TB_SoLuong" style="text-size-adjust:50%; color:red"></p> 
+                            </li>
+                           
+                           
+                        </ul>
+                      
+                        <div class="delivery">
+                            <p>Phí Dịch Vụ : 100.00 VNĐ</p>
+                            <span>Chuyển hàng trong 2-3 ngày</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <input type="submit" value="Cập Nhật" class="btn btn-danger" id="btnupdate" name="btnupdate"/>           
+             @Html.ActionLink("Xóa", "XoaGH", new { @MaSP = item.MaSP },new { @class="btn btn-success" })
+                }
+            }
+            else
+            {
+                <div class="cart-header">
+                    <div class="close1"> </div>
+                    <div class="cart-sec simpleCart_shelfItem">
+                        <div class="cart-item cyc">
+                            <img src="@Url.Content("~/Content/images/"+ item.HinhAnh)" class="img-responsive" alt="">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3 style="text-align:left"><a href="#">@item.TenSP</a><span>Mã Sản Phẩm: @item.MaSP</span></h3>
+                            <ul class="qty" style="text-align:left">
+                                <li><p>Giá : @item.ThanhTien</p></li>
+                                <li><p>Số Lượng : @item.SoLuong</p></li>
+                                @Html.ActionLink("Sửa", "UpdateGioHang", new { @MaSP = item.MaSP })
+                            </ul>
+
+                            <div class="delivery">
+                                <p>Phí Dịch Vụ : 100.00 VNĐ</p>
+                                <span>Chuyển hàng trong 2-3 ngày</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="col-md-3 cart-total">
+        <a class="continue" href="#">Continue to basket</a>
+        <div class="price-details">
+            <h3>Chi tiết giá</h3>
+            <span>Tổng Cộng</span>
+            <span class="total1">@lstGH.Sum(x => x.ThanhTien)</span>
+            <span>Giảm Giá</span>
+            <span class="total1">---</span>
+            <span>Phí Vận Chuyển</span>
+            <span class="total1">150.00</span>
+            <div class="clearfix"></div>
+        </div>
+        <ul class="total_price">
+            <li class="last_price"> <h4>TOTAL</h4></li>
+            <li class="last_price"><span>6350.00</span></li>
+            <div class="clearfix"> </div>
+        </ul>
+
+
+        <div class="clearfix"></div>
+        <a class="order" href="#">Place Order</a>
+        <div class="total-item">
+            <h3>OPTIONS</h3>
+            <h4>COUPONS</h4>
+            <a class="cpns" href="#">Apply Coupons</a>
+            <p><a href="#">Log In</a> to use accounts - linked coupons</p>
+        </div>
+    </div>
+
+    <div class="clearfix"> </div>
+</div>
+<style>
+    .product-price {
+        display: none;
+    }
+</style>
+<script>
+    $("#btnupdate").click(function () {
+        var sl=$("#SoLuong").val();
+        if (isNaN(sl) == true || sl<0) {
+            $("#TB_SoLuong").text("Số Lượng Không Hơp Lệ");
+            return false;
+        } else $("#TB_SoLuong").text("");
+    })
+</script>

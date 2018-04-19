@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Web.Models.SanPham>
+    @{ 
+        int sosp1trang = 4;
+        double m = Model.Count() / sosp1trang;
+        double sotrang =Math.Ceiling(m);
+    }
+<div class="col-md-9 product1">
+    <div class="bottom-product">
+        @foreach (var item in Model.OrderBy(x => x.DonGia))
+        {
+            <div class="col-md-4 grid-top">
+                <a href="@Url.RouteUrl("XemchitietSP", new { id = item.MaSP, @tensp = item.TenSP })" class="b-link-stripe b-animate-go  thickbox">
+                    <img class="img-responsive" src="@Url.Content("~/Content/images/" + item.HinhAnh)" alt="">
+                    <div class="pro-grid">
+                        <span class="buy">Buy Now</span>
+                    </div>
+                </a>
+                <p style="text-align:center;"><a href="single.html">@item.TenSP</a></p>
+
+                @*<a href="@Url.Action("ThemGioHang","GioHang",new {MaSP=item.MaSP,url=Request.Url.ToString() })" class="btn btn-lg">  </a>*@
+                <p class="number item_price"><i></i> @item.DonGia.Value.ToString("#,##") VNĐ</p>
+                @Ajax.ActionLink("Thêm Giỏ Hàng", "ThemGioHangAjax", "GioHang", new
+               {
+                   MaSP = item.MaSP,
+                   url = Request.Url.ToString(),
+                   @class = "item_add"
+               },
+                   new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)
+
+            </div>
+        }
+        <div class="clearfix"></div>
+    </div>
+</div>

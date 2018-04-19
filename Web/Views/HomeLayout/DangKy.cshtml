@@ -1,0 +1,79 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@using CaptchaMvc
+@model Web.Models.ThanhVien
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+
+    <div class="register">
+        <h1>Đăng Ký</h1>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-md-4 register-top-grid" style="float:left; text-align:left">
+                <h3>Thong Tin Ca Nhân</h3>
+                <div>
+                    <span> @Html.LabelFor(model => model.TaiKhoan)</span>
+                    @Html.TextBoxFor(model => model.TaiKhoan)
+                    @Html.ValidationMessageFor(model => model.TaiKhoan)
+                </div>
+                <div>
+                    <span> @Html.LabelFor(model => model.HoTen)</span>
+                    @Html.TextBoxFor(model=>model.HoTen)
+                    @Html.ValidationMessageFor(model=>model.HoTen)
+                </div>
+
+                <div>
+                    <span> @Html.LabelFor(model => model.DiaChi)</span>
+                   @Html.TextBoxFor(model => model.DiaChi)
+                @Html.ValidationMessageFor(model => model.DiaChi)
+                </div>
+                <div>
+                    <span> @Html.LabelFor(model => model.Email)</span>
+                   @Html.TextBoxFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+                </div>
+                <a class="news-letter" href="#">
+                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
+                </a>
+            </div>
+            <div class="col-md-4 register-bottom-grid register-top-grid" style="float:right">
+                <h3>Thong Tin Dang Nhap</h3>
+                <div>
+                    <span> @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+                   @Html.TextBoxFor(model => model.MatKhau)
+                @Html.ValidationMessageFor(model => model.MatKhau)
+                </div>
+                <div>
+                    <span> @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+                  @Html.TextBoxFor(model => model.MatKhau)
+                @Html.ValidationMessageFor(model => model.MatKhau)
+                </div>
+                <div>
+                    <span> @Html.LabelFor(model => model.CauHoi, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+                    @Html.TextBoxFor(model => model.CauHoi)
+                    @Html.ValidationMessageFor(model => model.CauHoi)
+                </div>
+                
+                <div>
+                    <span> @Html.LabelFor(model => model.CauTraLoi, htmlAttributes: new { @class = "control-label col-md-2" })</span>
+                   @Html.TextBoxFor(model => model.CauTraLoi)
+                @Html.ValidationMessageFor(model => model.CauTraLoi)
+                </div>
+                <h2 style="text-size-adjust:auto;">@ViewBag.ThongBao</h2>
+                <div>
+                    @Html.Captcha(5)
+                    @*@Html.MathCaptcha()*@
+                </div>
+                <input type="submit" value="submit">
+
+            </div>
+            <div class="clearfix"> </div>
+        }
+    </div>
+<!--//content-->
+

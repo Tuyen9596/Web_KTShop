@@ -1,0 +1,29 @@
+﻿@using Web.Models;
+@model IEnumerable<SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+@{ 
+    IEnumerable<SanPham> SPDT = (IEnumerable<SanPham>)ViewBag.lstDT;
+    IEnumerable<SanPham> SPLT =ViewBag.lstLT as  IEnumerable<SanPham>;
+    IEnumerable<SanPham> SPMTB = ViewBag.lstmtb as IEnumerable<SanPham>;
+}
+<div class="grid-in">
+   <div class="container">
+        @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", SPDT);
+    </div>
+    </div>
+<div class="grid-in">
+    <div class="container">
+        @Html.Partial("~/Views/SanPham/SanPhamStyle3Partial.cshtml", SPLT);
+    </div>
+    </div>
+<div class="grid-in">
+    <div class="container">
+        @Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", SPMTB);
+    </div>
+</div>
+
+

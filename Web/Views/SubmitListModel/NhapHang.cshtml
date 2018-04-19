@@ -1,0 +1,130 @@
+﻿@using Web.Models;
+@model PhieuNhap
+@{
+    ViewBag.Title = "NhapHang";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    IEnumerable<SanPham> lst = ViewBag.ListSanPham as IEnumerable<SanPham>;
+
+}
+@using (Html.BeginForm("NhapHang", "SubmitListModel"))
+{
+    <div style="margin-bottom:10px;">
+        Nhà Cung Cấp :@Html.DropDownList("MaNCC", null, new { @class = "col-m-6" })<br /><br />
+        Ngày Nhâp    :<input name="NgayNhap" type="date"   />
+    </div>
+    <div class="clearfix"></div>
+    <div>
+
+        <table class="tbl" style="border:1px solid lightgrey;width:100%">
+            <tr class="trAppend" style="display:none">
+                <td>
+                    <select class="ddlSanPham" name="">
+                        @foreach (var item in lst)
+                        {
+
+                            <option value="@item.MaSP">@item.TenSP</option>
+
+                        }
+                    </select>
+
+                </td>
+                <td><input type="text" name="" class="txtdongia" /></td>
+                <td><input type="text" name="" class="txtsoluong" /></td>
+                <td><input type="button" value="-" id="btndelete" class="btndelete btn btn-danger" /></td>
+            </tr>
+
+            <tr class="firstchild" data-id="-1">
+                <td>Sản Phẩm</td>
+                <td>Đơn Giá Nhập</td>
+                <td>Số Lượng Nhập</td>
+            </tr>
+        </table>
+        <input type="button" value="+" id="btnadd" class="btn btn-success" />
+        <input type="submit" value="Nhập Hàng" id="btnnhaphang" class="btn btn-primary" />
+
+    </div>
+}
+<script>
+    $("#btnadd").click(function () {
+        //b4:lay id cua the tr cuoi cung cua bang đe add vào cuối
+        var id = $(".tbl").find("tr:last-child").attr("data-id");
+        i = parseInt(id) + 1;
+        //b1:lay noi dung html cua object
+        var noidung = $(".trAppend").html();
+        //b2:cho vao the <tr>
+        var trnoidung = "<tr class=\"trAppended\" data-id=\"" + i + "\">" + noidung + "</tr>";
+        //b3:append vao the table 1 the tr
+        $(".tbl").append(trnoidung);
+        loadid();
+    });
+    //Gan name cho cac textbox
+    function loadid() {
+        $(".trAppended").each(function () {
+            //lay chi so id tu data-id
+            var id = $(this).attr("data-id");
+            var nameMaSP = "[" + id + "].MaSP";
+            var nameSoLuongNhap = "[" + id + "].SoLuongNhap";
+            var nameDonGiaNhap = "[" + id + "].DonGiaNhap";
+            $(this).find(".ddlSanPham").prop("name", nameMaSP);
+            $(this).find(".txtsoluong").prop("name", nameSoLuongNhap);
+            $(this).find(".txtdongia").attr("name", nameDonGiaNhap);
+        })
+    };
+    function CapNhatid() {
+        var id_first = $(".tbl").find(".firstchild").attr("data-id");
+        i = parseInt(id_first) + 1;
+        $(".trAppended").each(function () {
+            //lay chi so id tu data-id
+            $(this).attr("data-id", i);
+
+            var id = i;
+            var nameMaSP = "[" + id + "].MaSP";
+            var nameSoLuongNhap = "[" + id + "].SoLuongNhap";
+            var nameDonGiaNhap = "[" + id + "].DonGiaNhap";
+            $(this).find(".ddlSanPham").prop("name", nameMaSP);
+            $(this).find(".txtsoluong").prop("name", nameSoLuongNhap);
+            $(this).find(".txtdongia").attr("name", nameDonGiaNhap);
+            i++;
+        })
+    };
+    //Xoa the tr
+    $("body").delegate(".btndelete", "click", function () {
+        $(this).closest(".trAppended").remove();
+        CapNhatid();
+
+    });
+    $("#btnnhaphang").click(function () {
+        if (checkGia() == false) {
+            return false;
+        }
+        if (checkSoLuong() == false) {
+            return false;
+        }
+       
+    });
+    function checkGia() {
+        var bl = true;
+        $(".txtdongia").each(function () {
+            var giatri = $(this).val();
+            if (isNaN(giatri) == true) {
+                alert("Đơn Giá Không Hợp Lệ");
+                bl = false;
+            }
+        });
+        return bl;
+    }
+    function checkSoLuong() {
+        var bl = true;
+        $(".txtsoluong").each(function () {
+            var giatri = $(this).val();
+            if (isNaN(giatri) == true) {
+                alert("So Luong Không Hợp Lệ");
+                bl = false;
+            }
+        });
+        return bl;
+    }
+
+</script>
+
+

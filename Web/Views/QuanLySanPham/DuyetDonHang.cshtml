@@ -1,0 +1,66 @@
+﻿@using Web.Models;
+@model DonDatHang
+@{
+    ViewBag.Title = "DuyetDonHang";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+@using (Html.BeginForm())
+{
+<div class="ChiTietDonDatHang">
+    @{IEnumerable<ChiTietDonDatHang> lstchitietDDH= ViewBag.ListChiTietDDh as IEnumerable<ChiTietDonDatHang>;}
+    <table id="table" class="table" width="100%">
+        @* Phan Thong Tin Don Hang *@
+        <tr>
+            <td colspan="4">
+                <table width="100%">
+                    <tr>
+                        <td>Mã Đơn Khách:<b style="color:red">@Model.MaDDH @Html.Hidden("MaDDH",@Model.MaDDH)</b> </td>
+                        <td>Mã Khách Hàng:<b style="color:red">@Model.MaKH </b> </td>
+                        <td>Tên Khách Hàng:<b style="color:red">@Model.KhachHang.TenKH</b> </td>
+                        <td>Ngày Đặt:@Model.NgayDat.Value.ToShortDateString()</td>
+                        <td>Đã Thanh Toán:<b style="color:red">@Html.EditorFor(model => model.DaThanhToan)</b></td>
+                        <td>Đã Giao:<b style="color:red">@Html.EditorFor(model => model.TinhTrangGiaoHang)</b></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        @* Thông Tin Chi Tiết Đơn Hàng *@
+        <tr>
+            <td>Sản Phẩm</td>
+            <td>Hình Ảnh</td>
+            <td>Số Lượng</td>
+            <td>Đơn Giá Đặt</td>
+        </tr>
+        @foreach(var item in lstchitietDDH){
+            <tr>
+                <td>@item.TenSP</td>
+                <td><img width="150" height="50" src="@Url.Content("~/Content/images/"+@item.SanPham.HinhAnh)"/></td>
+                <td>@item.SoLuong</td>
+                <td>@item.DonGia</td>
+            </tr>
+        }
+        <tr>
+            <td align="right" colspan="4">Tổng Số Lượng:@Model.ChiTietDonDatHang.Sum(n=>n.SoLuong) sản phẩm</td>
+        </tr>
+        <tr>
+            <td align="right" colspan="4">Tổng Tiền:@Model.ChiTietDonDatHang.Sum(n=>n.DonGia).Value.ToString("#,##") đồng</td>
+        </tr>
+    </table>
+    <br /><br />
+    <input type="button" value="Print" id="btnInDonHang" />
+    <input type="submit" value="Save" id="btnLuuDonHang" />
+</div>
+}
+<script>
+    $("#btnInDonHang").click(function () {
+        var content = $(".ChiTietDonDatHang").html();
+        InDonHang(content);
+    });
+    function InDonHang(content) {
+        var printWindow = window.open('', '', 'height=400,width=800');
+        printWindow.document.write('<html><head><title>DIV Contents</title>');
+        printWindow.document.write('</head><body >');
+        printWindow.document.write(content);printWindow.document.write('</body></html>');
+        printWindow.document.close();printWindow.print();
+    }
+</script>

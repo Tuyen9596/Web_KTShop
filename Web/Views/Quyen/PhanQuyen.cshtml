@@ -1,0 +1,21 @@
+﻿@using Web.Models;
+@model LoaiThanhVien
+@{
+    ViewBag.Title = "PhanQuyen";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    IEnumerable<Quyen> lstquyen = ViewBag.Quyen as IEnumerable<Quyen>;
+    IEnumerable<LoaiThanhVien_Quyen> ltvq = ViewBag.LoaiTVQuyen as IEnumerable<LoaiThanhVien_Quyen>;
+}
+
+<h2>PhanQuyen</h2>
+<h1 style="color:red">Loại Thành Viên:@Model.TenLoai</h1>
+<br />
+@Html.BeginForm(){
+@Html.Hidden("MaLoaiTV", Model.MaLoaiTV)
+@if (ltvq != null)
+{
+    foreach (var item in lstquyen)
+    {
+    }
+}
+}

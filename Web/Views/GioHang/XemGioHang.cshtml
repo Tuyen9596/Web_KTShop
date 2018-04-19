@@ -1,0 +1,146 @@
+﻿@using Web.Models
+@model List<ItemGioHang>
+@{
+    ViewBag.Title = "XemGioHang";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+@if (Model.Count == 0 || Model==null)
+{
+    <span>Giỏ Hàng Rống</span> 
+}
+else
+{
+<div class="check">
+    <h1>Túi Hàng Của Tôi</h1>
+    <div class="col-md-9 cart-items">
+        @foreach (var item in Model)
+        {
+
+            <div class="cart-header">
+                @Html.ActionLink("Xóa", "XoaGH", new { @MaSP = item.MaSP }, new { @class = "btn btn-warning" })
+                <div class="cart-sec simpleCart_shelfItem">
+                    <div class="cart-item cyc">
+                        <img src="@Url.Content("~/Content/images/" + item.HinhAnh)" class="img-responsive" alt="">
+                    </div>
+                    <div class="cart-item-info">
+                        <h3 style="text-align:left"><a href="#">@item.TenSP</a><span>Mã Sản Phẩm: @item.MaSP</span></h3>
+                        <ul class="qty" style="text-align:left">
+                            <li><p>Giá : @item.ThanhTien.ToString("##,##")</p></li>
+                            <li><p>Số Lượng : @item.SoLuong</p></li>
+                            @Html.ActionLink("Sửa", "UpdateGioHang", new { @MaSP = item.MaSP }, new { @class = "btn btn-danger" })
+
+                        </ul>
+
+                        <div class="delivery">
+                            <p>Phí Dịch Vụ : 100.00 VNĐ</p>
+                            <span>Chuyển hàng trong 2-3 ngày</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-3 cart-total">
+        <a class="btn btn-success" href=@Url.Action("Index","HomeLayout")>Tiếp tục mua hàng</a>
+        <div class="price-details">
+            <h3>Chi tiết giá</h3>
+            <span>Tổng Cộng</span>
+            <span class="total1">@Model.Sum(x => x.ThanhTien).ToString("#,##")</span>
+            <span>Giảm Giá</span>
+            <span class="total1">---</span>
+            <span>Phí Vận Chuyển</span>
+            <span class="total1">15.000</span>
+            <div class="clearfix"></div>
+        </div>
+        <ul class="total_price">
+            <li class="last_price"> <h4>TOTAL</h4></li>
+            <li class="last_price"><span>@(Model.Sum(x => x.ThanhTien)+15000)</span></li>
+        </ul>
+        <div class="clearfix"> </div>
+
+
+        <div class="clearfix"></div>
+        <div class="total-item">
+            <h3>Chi Tiết</h3>
+            <h4>Giảm Giá</h4>
+            <a class="cpns" href="#">Phiếu giảm giá</a><br />
+            <div>
+                <p></p>
+         @using (Html.BeginForm("DatHang", "GioHang",FormMethod.Post))
+         {
+             if (Session["TaiKhoan"] == null)
+             {
+            <p>Thông tin khách hàng</p>
+            <p>Họ tên : @Html.TextBox("TenKH")</p>
+            <span id="TB_TenKH" style="color:red"></span>
+            <p>Địa Chỉ :@Html.TextArea("DiaChi")</p>
+            <span id="TB_DiaChi" style="color:red"></span>
+            <p>Email : @Html.TextBox("Email")</p>
+            <span id="TB_Email" style="color:red"></span>
+            <p>Phone :@Html.TextBox("SoDienThoai")</p>
+            <span id="TB_SDT" style="color:red"></span>
+            <p><a href="#">Đăng Nhập</a> Đê Sử Dụng Phiếu Giảm Giá</p>
+            <script>
+    var check = 0;
+    $("#btndathang").click(function () {
+        if ($("#TenKH").val() == "") {
+            $("#TB_TenKH").text("Tên Khách Hàng Khong Được Trống");
+            check++;
+        } else $("#TB_TenKH").text("");
+        if ($("#DiaChi").val() == "") {
+            $("#TB_DiaChi").text("Địa Chỉ Khách Hàng Khong Được Trống");
+            check++;
+        } else $("#TB_DiaChi").text("");
+        //kiêm tra mail
+        dinhdang =/^[0-9A-Za-z]+[0-9A-Za-z_]*@@[\w\d.]+\.\w{2,4}$/;
+        checkmail = dinhdang.test($("#Email").val());
+        if (!checkmail) {
+            $("#TB_Email").text("Email không đúng");
+            check++;
+        } else $("#TB_Email").text("");
+
+        if (check != 0) return false;//khoong cho submit
+
+    });
+            </script>
+             }
+           <input type="submit" value="Đặt Hàng" class="btn btn-success" id="btndathang" />
+           }
+        </div>
+
+    </div>
+
+    <div class="clearfix"> </div>
+</div>
+    </div>
+}
+
+<style>
+    .product-price {
+        display: none;
+    }
+
+    .btn-warning {
+        float: right;
+    }
+
+    .cart-header{
+        padding-top:0;
+    }
+    .product{
+        padding-top:0;
+    }
+    .formbuy{
+        border:initial;
+        background-color:#bb8b8b;
+    }
+    input[type="submit"] {
+   padding:7px;
+   margin:0;
+   background-color:lightgreen;
+}
+</style>
+@*Kiêm tra giá thông tin khách hàng nhập vào*@

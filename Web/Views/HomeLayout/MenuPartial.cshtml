@@ -1,0 +1,57 @@
+﻿@using Web.Models
+@model IEnumerable<SanPham>
+<div class="h_menu4" style="z-index:10">
+    <ul class="memenu skyblue" style="width:70%;float:right">
+        <li class="showhide" style="display: none;"><span class="title">MENU</span><span class="icon1"></span><span class="icon2"></span></li>
+        <li class="active grid"><a class="color8" href=@Url.Action("Index","HomeLayout")>Trang Chủ</a></li>
+        @foreach (var groupitem in Model.GroupBy(n => n.LoaiSanPham))
+        {
+            if (groupitem.Key != null)
+            {
+                <li>
+                    <a class="color1" href="#">@groupitem.Key.TenLoai</a>
+                    <div class="mepanel">
+                        <div class="row">
+                            <div class="col1">
+                                <div class="h_nav">
+                                    <ul>
+                                        @foreach (var item in groupitem.GroupBy(x => x.NhaSanXuat))
+                                        {
+                                            if (item.Key != null)
+                                            {
+                                                <li><a href="@Url.Action("SanPham","SanPham",new {maloaisp=groupitem.Key.MaLoaiSP, mansx = item.Key.MaNSX })" >@item.Key.TenNSX</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+        <li class="grid">
+            <a class="color2" href="#">	Thương Hiệu</a>
+            <div class="mepanel">
+                <div class="row">
+                    @foreach (var item in Model.GroupBy(n=>n.LoaiSanPham))
+                    {
+                        if (item.Key != null) { 
+                        <div class="col1">
+                        <div class="h_nav">
+                            <h4>@item.Key.TenLoai</h4>
+                            <ul>
+                                @foreach (var itemgroup in item.GroupBy(x => x.NhaSanXuat))
+                                {
+                                     <li><a href="@Url.Action("SanPham","SanPham",new {maloaisp=item.Key.MaLoaiSP, mansx = itemgroup.Key.MaNSX })">@itemgroup.Key.TenNSX</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    }
+                    }
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

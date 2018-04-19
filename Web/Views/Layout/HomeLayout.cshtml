@@ -1,0 +1,178 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>KT-Shop</title>
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/Content/js/jquery.min.js"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'><!--//fonts-->
+    <!-- start menu -->
+    <link href="~/Content/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="~/Content/js/memenu.js"></script>
+    <script>$(document).ready(function(){$(".memenu").memenu();});</script>
+    <script src="~/Content/js/simpleCart.min.js"> </script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="~/Content/css/style_login_form.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        @Html.Partial("~/Views/Layout/HeaderTopPartial.cshtml")
+        <div class="container">
+            <div class="head-top">
+                <div class="logo">
+                    <a href="#"><img src="~/Content/images/logo.png" alt=""></a>
+                </div>
+                @Html.Action("MenuPartial","HomeLayout")
+              
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item">
+                    <img src="~/Content/images/slideshow1.png" alt="Thiết kế 1" class="col-md-12"/>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item active">
+                    <img src="~/Content/images/slideshow2.png" class="col-md-12"/>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/sildeshow3.gif" class="col-md-12" />
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/13_04_2018_22_47_46_Nokia-7-Plus-800-300.png" class="col-md-12"/>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/16_04_2018_14_37_15_Sony-Xperia-XZ2-800-300.png" class="col-md-12"/>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+        </div>
+    </div>
+    @*<div class="banner">
+        <div class="container">
+            <script src="~/Content/js/responsiveslides.min.js"></script>
+            <script>
+    $(function () {
+      $("#slider").responsiveSlides({
+      	auto: true,
+      	nav: true,
+      	speed: 500,
+        namespace: "callbacks",
+        pager: true,
+      });
+    });
+            </script>
+
+        </div>
+    </div>*@
+
+    <!--content-->
+    <div class="content">
+        @RenderBody()
+        <div class="content-bottom">
+            <ul>
+                <li><a href="#"><img class="img-responsive" src="~/Content/images/lo.png" alt=""></a></li>
+                <li><a href="#"><img class="img-responsive" src="~/Content/images/lo1.png" alt=""></a></li>
+                <li><a href="#"><img class="img-responsive" src="~/Content/images/lo2.png" alt=""></a></li>
+                <li><a href="#"><img class="img-responsive" src="~/Content/images/lo3.png" alt=""></a></li>
+                <li><a href="#"><img class="img-responsive" src="~/Content/images/lo4.png" alt=""></a></li>
+                <li><a href="#"><img class="img-responsive" src="~/Content/images/lo5.png" alt=""></a></li>
+                
+            </ul>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="footer-top-at">
+
+                <div class="col-md-4 amet-sed">
+                    <h4>MORE INFO</h4>
+                    <ul class="nav-bottom">
+                        <li><a href="#">How to order</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact.html">Location</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Membership</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 amet-sed ">
+                    <h4>CONTACT US</h4>
+
+                    <p>
+                        Contrary to popular belief
+                    </p>
+                    <p>The standard chunk</p>
+                    <p>office:  +12 34 995 0792</p>
+                    <ul class="social">
+                        <li><a href="#"><i> </i></a></li>
+                        <li><a href="#"><i class="twitter"> </i></a></li>
+                        <li><a href="#"><i class="rss"> </i></a></li>
+                        <li><a href="#"><i class="gmail"> </i></a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-4 amet-sed">
+                    <h4>Newsletter</h4>
+                    <p>
+                        Sign Up to get all news update
+                        and promo
+                    </p>
+                    <form>
+                        <input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+                        <input type="submit" value="Sign up">
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="footer-class">
+        </div>
+    </div>
+</body>
+
+</html>
+<style>
+    body {  
+padding-top:0px;
+}
+p {
+color:#0C0
+}
+</style>

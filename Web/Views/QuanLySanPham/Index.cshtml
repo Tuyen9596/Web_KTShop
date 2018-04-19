@@ -1,0 +1,26 @@
+﻿@using Web.Models;
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+ }
+@{
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
+}
+@grid.GetHtml(
+    tableStyle: "table table-bordered",
+    headerStyle: "gridHead",
+    footerStyle: "gridFooter",
+
+    rowStyle: "gridRow",
+    alternatingRowStyle: "gridAltRow",
+    columns: grid.Columns(
+        grid.Column("MaSP", "ID"),
+        grid.Column("TenSP", "Name"),
+        grid.Column("MoTa", "Mô Tả", format: p => @Html.Raw("<img width=\"150\" height=\"150\" src=\"../Content/images/"+p.HinhAnh+"\"")),
+        grid.Column(format: p => @Html.ActionLink("Chinh Sửa", "ChinhSua", new {id=p.MaSP })),
+         grid.Column(format: p => @Html.ActionLink("Xóa ", "Xoa", new { id = p.MaSP }))
+        )
+)
+
+
