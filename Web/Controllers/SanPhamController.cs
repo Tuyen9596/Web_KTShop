@@ -49,6 +49,7 @@ namespace Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.sp = lstsp;
+            ViewBag.lstSP = db.SanPham;
             int pagesize = 2;
             int pagenumber = page ?? 1;
             ViewBag.MaLoaiSP = maloaisp;

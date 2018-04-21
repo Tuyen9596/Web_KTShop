@@ -162,6 +162,12 @@ namespace Web.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }
+        public ActionResult MenuProductLeftPartial()
+        {
+            var listSP1 = db.SanPham;
+            ViewBag.lstSP1 = listSP1;
+            return PartialView(listSP1);
+        }
 
     }
 }

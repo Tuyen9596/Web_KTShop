@@ -4,7 +4,9 @@
 @{
     ViewBag.Title = "SanPham";
     Layout = "~/Views/Layout/ProductLayout.cshtml";
+    IEnumerable<SanPham> lst = ViewBag.lstSP as IEnumerable<SanPham>;
 }
+@Html.Partial("~/Views/SanPham/MenuProductLeft.cshtml", lst);
 <div class="col-md-9 product1">
     <div class="bottom-product">
         @foreach (var item in Model.OrderBy(x => x.DonGia))

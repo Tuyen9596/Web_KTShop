@@ -416,7 +416,7 @@ height: 35px;
 .b-animate span{
 	display:block;
 	font-size: 14px;
-	padding-top: 14px;
+	padding-top: 4px;
 	display: block;
 	font-weight: 0;
 }
@@ -449,10 +449,9 @@ height: 35px;
 	position: relative;
 	top: -100%;
 	background: rgba(239, 95, 33, 0.64);
-  background-size: 100% 100%;
- 
-  margin: 0;
-  min-height: 429px;
+    background-size: 100% 100%;
+    margin: 0;
+    min-height: 429px;
 }
 .col-md1:hover .b-from-top{
 	top:0;
