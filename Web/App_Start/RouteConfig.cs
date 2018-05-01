@@ -12,7 +12,9 @@ namespace Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            //goi file capctcha
+            routes.IgnoreRoute("{*Botdetect}",
+                new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
             //Tao duong dan cho trabg xem chi tiet
             routes.MapRoute(
                name: "xemchitiet",

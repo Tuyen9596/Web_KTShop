@@ -6,17 +6,22 @@ using System.Web;
 using System.Net.Mail; //using thư viện gửi mail
 using System.Web.Mvc;
 using Web.Models;
+using PagedList;
+
 namespace Web.Controllers
 {
-    [Authorize(Roles = "admin,Mod,Member")]
+    [Authorize(Roles = "admin,Mod")]
     public class QuanLySanPhamController : Controller
     {
         QuanLyBanHangEntities db = new QuanLyBanHangEntities();
         // GET: QuanLySanPham
         [Authorize(Roles = "Member")]
-        public ActionResult Index()
+        public ActionResult Index(string sTuKhoa, int? page)
         {
-            return View(db.SanPham.Where(n=>n.DaXoa==false));
+            int pagesize = 10;
+            int pagenumber = page ?? 1;
+            ViewBag.TuKhoa = sTuKhoa;
+            return View(db.SanPham.OrderBy(x=>x.TenSP).ToPagedList(pagenumber, pagesize)); ;
         }
         [HttpGet]
         public ActionResult ChinhSua(int? id)
@@ -44,18 +49,22 @@ namespace Web.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult ChinhSua(SanPham model)
         {
-            //bỏ ua phân kiêm tra .sưa trưc tiêp
-            ViewBag.MaNCC = new SelectList(db.NhaCC.OrderBy(x => x.MaNCC), "MaNCC", "TenNCC", model.MaNCC);
-            ViewBag.MaLoaiSP = new SelectList(db.LoaiSanPham.OrderBy(x => x.MaLoaiSP), "MaLoaiSP", "TenLoai", model.MaLoaiSP);
-            ViewBag.MaNSX = new SelectList(db.NhaSanXuat.OrderBy(x => x.MaNSX), "MaNSX", "TenNSX", model.MaNSX);
-            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
-             db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                //bỏ ua phân kiêm tra .sưa trưc tiêp
+                ViewBag.MaNCC = new SelectList(db.NhaCC.OrderBy(x => x.MaNCC), "MaNCC", "TenNCC", model.MaNCC);
+                ViewBag.MaLoaiSP = new SelectList(db.LoaiSanPham.OrderBy(x => x.MaLoaiSP), "MaLoaiSP", "TenLoai", model.MaLoaiSP);
+                ViewBag.MaNSX = new SelectList(db.NhaSanXuat.OrderBy(x => x.MaNSX), "MaNSX", "TenNSX", model.MaNSX);
+                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            return View();
           
         }
         public ActionResult Xoa(int id)//DaXOa=rue
         {
-            //lay sp can chi nh sua
+            //lay sp can xoa
             if (id ==null)
             {
                 Response.StatusCode = 404;
@@ -138,6 +147,14 @@ namespace Web.Controllers
             smtp.Credentials = new System.Net.NetworkCredential(FromEmail, PassWord);//Tài khoản password người gửi
             smtp.EnableSsl = true; //kích hoạt giao tiếp an toàn SSL
             smtp.Send(mail); //Gửi mail đi
+        }
+        public ActionResult searchProductPartial(string sTuKhoa)
+        {
+
+            @ViewBag.stringSearch = sTuKhoa;
+            //Tìm kiêm theo tên sp
+            var lst = db.SanPham.Where(x=>x.TenSP.Contains(sTuKhoa));
+            return PartialView(lst);
         }
 
     }

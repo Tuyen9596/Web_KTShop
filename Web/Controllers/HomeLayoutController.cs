@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web.Models;
-using CaptchaMvc.HtmlHelpers;
-using CaptchaMvc;
 using System.Web.Security;
+using BotDetect.Web.Mvc;
 
 namespace Web.Controllers
 {
@@ -38,34 +37,27 @@ namespace Web.Controllers
             ViewBag.CauHoi = new SelectList( Cauhoibimat());
             return View();
         }
-        [HttpGet]
-        public ActionResult DangKy1()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult DangKy1(ThanhVien tv)
-        {
-            return View();
-        }
 
         [HttpPost]
-        public ActionResult DangKy( ThanhVien tv)
+        [AllowAnonymous]
+        [CaptchaValidation("CaptchaCode", "exampleCaptcha", "Mã xác nhận không đúng!")]
+        public ActionResult DangKy(ThanhVien tv)
         {
             //Kiem tra captcha hop le
-            if(this.IsCaptchaValid(""))
+            if(ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    //Add 1 Thanh vien
-                    ViewBag.ThongBao = "Them Thanh Cong";
-                    db.ThanhVien.Add(tv);
-                    db.SaveChanges();
-                }
-                else ViewBag.ThongBao = "Thêm Thất Bại";
+                //Add 1 Thanh vien
+                tv.MaLoaiTV = 2;
+                db.ThanhVien.Add(tv);
+                db.SaveChanges();
+                ViewBag.ThongBao = "Thêm Thành Công";
+
+            }else
+
+            {
+                ViewBag.loi = "Thêm Thất Bại";
                 return View();
             }
-            ViewBag.ThongBao = "Sai Ma Captcha";
             return View();
 
         }
@@ -86,7 +78,7 @@ namespace Web.Controllers
             if(tv!=null)
             {
                 Session["TaiKhoan"] = tv;
-                return RedirectToAction("Index");
+                return View("Index");
             }
             return Content("Tai Khoan Khong Ton Tai");
         }
@@ -123,7 +115,7 @@ namespace Web.Controllers
                 PhanQuyen(txtTaiKhoan, Quyen);
                 //Xử lý phương thức phân quyền
                 Session["TaiKhoan"] = tv;
-                return RedirectToAction("Index", "HomeLayout");
+                return RedirectToAction("Index");
             }
             return Content("Đăng Nhập Thất Bại!! Xin Hãy Thử Lại");
 

@@ -1,33 +1,24 @@
 ﻿@using Web.Models;
-@model IEnumerable<SanPham>
+@model IEnumerable<LoaiSanPham>
 <div class="col-md-3 product-price">
     <div class="rsidebar span_1_of_left">
         <div class="of-left">
-            <h3 class="cate">Danh Mục</h3>
+            <h3 class="">Danh Mục</h3>
         </div>
-        <ul class="menu">
-            @foreach (var groupitem in Model.GroupBy(n => n.LoaiSanPham))
+        <ul class="">
+            @foreach (var groupitem in Model)
             {
                 if (groupitem != null)
                 {
-                <li class="item1">
-                    <a href="#">@groupitem.Key.TenLoai</a>
-                    <ul>
-                    @foreach (var item in groupitem.GroupBy(x => x.NhaSanXuat))
-                    {
-                        if (item != null)
-                        {
-                        <li ><a href="@Url.Action("SanPham", "SanPham",new {maloaisp=groupitem.Key.MaLoaiSP, mansx = item.Key.MaNSX })">@item.Key.TenNSX</a></li>
-                        }
-                    }
-                    </ul>
-                </li>
+                    <li class="">
+                        <a href="#" style="margin-left:0"><span class="glyphicon glyphicon-book" >--</span>@groupitem.TenLoai</a>
+                    </li>
                 }
             }
         </ul>
     </div>
     <!--initiate accordion-->
-    <script type="text/javascript">
+    <script >
         $(function () {
             var menu_ul = $('.menu > li > ul'),
                    menu_a = $('.menu > li > a');
@@ -47,32 +38,24 @@
         });
     </script>
     <!---->
-    <div class="product-middle">
-
-        <div class="fit-top">
-            <h6 class="shop-top">Lorem Ipsum</h6>
-            <a href="#" class="shop-now">SHOP NOW</a>
-            <div class="clearfix"> </div>
-        </div>
-    </div>
-    <div class="sellers">
+    <div >
         <div class="of-left-in">
-            <h3 class="tag">Tags</h3>
+            <h3 class="">Tags</h3>
         </div>
         <div class="tags">
-            <ul>
-                <li><a href="#">design</a></li>
-                <li><a href="#">fashion</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">dress</a></li>
-                <li><a href="#">fashion</a></li>
-                <li><a href="#">dress</a></li>
-                <li><a href="#">design</a></li>
-                <li><a href="#">dress</a></li>
-                <li><a href="#">design</a></li>
-                <li><a href="#">fashion</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">dress</a></li>
+            <ul style="li{border:1px solid blue}">
+                <li><a href="#">Mobile</a></li>
+                <li><a href="#">Laptop</a></li>
+                <li><a href="#">Ipad</a></li>
+                <li><a href="#">Chip</a></li>
+                <li><a href="#">DELL</a></li>
+                <li><a href="#">HP</a></li>
+                <li><a href="#">Lenovo</a></li>
+                <li><a href="#">ASUS</a></li>
+                <li><a href="#">ACER</a></li>
+                <li><a href="#">Ram</a></li>
+                <li><a href="#">Iphone</a></li>
+                <li><a href="#">APPLE</a></li>
 
                 <div class="clearfix"> </div>
             </ul>
@@ -81,45 +64,4 @@
 
     </div>
     <!---->
-    <div class="product-bottom">
-        <div class="of-left-in">
-            <h3 class="best">Bán Chạy Nhất</h3>
-        </div>
-        <div class="product-go">
-            <div class="fashion-grid">
-                <a href="#"><img class="img-responsive " src="images/p1.jpg" alt=""></a>
-
-            </div>
-            <div class="fashion-grid1">
-                <h6 class="best2">
-                    <a href="">
-                        IPhone 6 Plus
-                    </a>
-                </h6>
-
-                <span class="price-in1"> $40.00</span>
-            </div>
-
-            <div class="clearfix"> </div>
-        </div>
-        <div class="product-go">
-            <div class="fashion-grid">
-                <a href="#"><img class="img-responsive " src="images/p2.jpg" alt=""></a>
-
-            </div>
-            <div class="fashion-grid1">
-                <h6 class="best2">
-                    <a href="#">
-                        Lorem ipsum dolor sit
-                        amet consectetuer
-                    </a>
-                </h6>
-
-                <span class=" price-in1"> $40.00</span>
-            </div>
-
-            <div class="clearfix"> </div>
-        </div>
-
-    </div>
 </div>

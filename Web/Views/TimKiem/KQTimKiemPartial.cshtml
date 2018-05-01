@@ -4,7 +4,7 @@
         double m = Model.Count() / sosp1trang;
         double sotrang =Math.Ceiling(m);
     }
-<div class="col-md-9 product1">
+<div class="col-md-12 product1">
     <div class="bottom-product">
         @foreach (var item in Model.OrderBy(x => x.DonGia))
         {
@@ -15,17 +15,16 @@
                         <span class="buy">Buy Now</span>
                     </div>
                 </a>
-                <p style="text-align:center;"><a href="single.html">@item.TenSP</a></p>
+                <p style="text-align:center;"><a href="#">@item.TenSP</a></p>
 
                 @*<a href="@Url.Action("ThemGioHang","GioHang",new {MaSP=item.MaSP,url=Request.Url.ToString() })" class="btn btn-lg">  </a>*@
                 <p class="number item_price"><i></i> @item.DonGia.Value.ToString("#,##") VNĐ</p>
                 @Ajax.ActionLink("Thêm Giỏ Hàng", "ThemGioHangAjax", "GioHang", new
-               {
-                   MaSP = item.MaSP,
-                   url = Request.Url.ToString(),
-                   @class = "item_add"
-               },
-                   new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)
+           {
+               MaSP = item.MaSP,
+               url = Request.Url.ToString(),
+           },
+                   new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-warning" })
 
             </div>
         }

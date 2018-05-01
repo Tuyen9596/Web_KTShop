@@ -1,0 +1,32 @@
+﻿@using Web.Models;
+@model IEnumerable<SanPham>
+<table class="table table-bordered table-striped table-hover">
+    <thead style="color:darkblue; background-color:aqua">
+        <tr>
+            <td>ID</td>
+            <td>Product Name</td>
+            <td>Image</td>
+            <td>Price</td>
+            <td>Number of OutStanding</td>
+            <td></td>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model)
+            {
+        <tr>
+            <td class="col-mid-1">@item.MaSP</td>
+            <td class="col-mid-2">@item.TenSP</td>
+            <td class="col-mid-2"><img src="/Content/images/@item.HinhAnh" alt="No Image" height="150" width="150" /></td>
+            <td class="col-mid-2">@item.DonGia</td>
+            <td class="col-mid-1">@item.SoLuongTon</td>
+            <td class="col-mid-1" style="">
+                @Html.ActionLink(".", "ChinhSua", new { id = @item.MaSP }, new { @class = "fas fa-edit fa-2x" }) ||
+                @Html.ActionLink(".", "Xoa", new { id = @item.MaSP }, new { @class = "far fa-trash-alt fa-2x" })
+            </td>
+        </tr>
+    }
+</table>
+<div class="clearfix"></div>
+

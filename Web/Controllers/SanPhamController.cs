@@ -19,30 +19,30 @@ namespace Web.Controllers
             return PartialView();
         }
         //Xay dung trang xem chi tiet
-        public ActionResult Xemchitiet(int? id,string tensp)
+        public ActionResult Xemchitiet(int? id, string tensp)
         {
             //khong truyen vao id se bao loi
-            if(id==null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var sp = db.SanPham.SingleOrDefault(m => m.MaSP == id && m.DaXoa==false);
+            var sp = db.SanPham.SingleOrDefault(m => m.MaSP == id && m.DaXoa == false);
             //neu id khhong tin tai du lieu nao tuong ung tra ve loi khong tim  thay
-            if(sp==null)
+            if (sp == null)
             {
                 return HttpNotFound();
             }
             return View(sp);
         }
-        public ActionResult SanPham(int? maloaisp, int? mansx,int? page)
+        public ActionResult SanPham(int? maloaisp, int? mansx, int? page)
         {
-            if (mansx == null||maloaisp==null)
+            if (mansx == null || maloaisp == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-          
-            var lstsp= db.SanPham.Where(m => m.MaNSX==mansx && m.MaLoaiSP==maloaisp);
-           
+
+            var lstsp = db.SanPham.Where(m => m.MaNSX == mansx && m.MaLoaiSP == maloaisp);
+
             //neu id khhong tin tai du lieu nao tuong ung tra ve loi khong tim  thay
             if (lstsp.Count() == 0)
             {
@@ -54,7 +54,11 @@ namespace Web.Controllers
             int pagenumber = page ?? 1;
             ViewBag.MaLoaiSP = maloaisp;
             ViewBag.MaNSX = mansx;
-            return View(lstsp.OrderBy(n=>n.MaSP).ToPagedList(pagenumber,pagesize));
+            return View(lstsp.OrderBy(n => n.MaSP).ToPagedList(pagenumber, pagesize));
+        }
+        public ActionResult MenuProductLeft()
+        {
+            return View(db.LoaiSanPham);
         }
     }
 }

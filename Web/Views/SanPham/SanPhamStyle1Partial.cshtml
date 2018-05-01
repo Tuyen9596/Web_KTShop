@@ -1,7 +1,10 @@
 ﻿@using Web.Models;
 @model IEnumerable<SanPham>
+    <div class="row">
+        <h2 style="float: left;font-size: 16px;color: #333;font-weight: 600;padding: 14px 10px;text-transform: uppercase;">Điện Thoại Bán Chạy >> </h2>
+</div>
 <div class="row">
-    @foreach (var item in Model.Take(15))
+    @foreach (var item in Model.Take(8))
     {
         <div class="col-md-3 grid-top" style="margin-bottom:10px">
             <a href="@Url.RouteUrl("XemchitietSP",new { id=item.MaSP,@tensp=item.TenSP})" class="b-link-stripe b-animate-go  thickbox">
@@ -12,7 +15,12 @@
                     </h1>
                 </div>
             </a>
+           
             <p style="text-align:center;"><a href="@Url.RouteUrl("XemchitietSP",new { id=item.MaSP,@tensp=item.TenSP})">@item.TenSP</a></p>
+            <div style="color:red;font:bold 12px;">
+                <p class="glyphicon glyphicon-shopping-cart" style="margin-right:10px">@item.SoLanMua</p><p class="glyphicon glyphicon-eye-open">@item.LuotXem</p>
+                @decimal.Parse(item.DonGia.ToString()).ToString("#,##") VND
+            </div>
         </div>
     }
     <div class="clearfix"> </div>

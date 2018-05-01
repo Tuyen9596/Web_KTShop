@@ -1,79 +1,83 @@
-﻿@using CaptchaMvc.HtmlHelpers
-@using CaptchaMvc
+﻿@using BotDetect.Web.Mvc;
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+@{ MvcCaptcha exampleCaptcha = new MvcCaptcha("exampleCaptcha"); }
 @model Web.Models.ThanhVien
 
 @{
     ViewBag.Title = "DangKy";
     Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
+@Html.Action("MenuProductLeft", "SanPham");
 
-    <div class="register">
-        <h1>Đăng Ký</h1>
+    <div class="register" style="padding-top:0">
+      
+        <h2 style="font:bold 25px italic ;color:blue">Đăng Ký Tài Khoản Mới</h2>
         @using (Html.BeginForm())
         {
+            if (ViewBag.ThongBao != null)
+            {
+                <div class="alert alert-success col-md-9" id="AlertBox"> @ViewBag.ThongBao </div>
+            }
+            if(ViewBag.loi != null)
+            {
+                <div class="alert alert-danger col-md-9" id="AlertBox"> @ViewBag.loi </div>
+            }
             @Html.AntiForgeryToken()
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="col-md-4 register-top-grid" style="float:left; text-align:left">
-                <h3>Thong Tin Ca Nhân</h3>
-                <div>
-                    <span> @Html.LabelFor(model => model.TaiKhoan)</span>
-                    @Html.TextBoxFor(model => model.TaiKhoan)
-                    @Html.ValidationMessageFor(model => model.TaiKhoan)
-                </div>
-                <div>
-                    <span> @Html.LabelFor(model => model.HoTen)</span>
-                    @Html.TextBoxFor(model=>model.HoTen)
-                    @Html.ValidationMessageFor(model=>model.HoTen)
-                </div>
+            <div class="row">
+                <div class="col-md-4 register-top-grid">
+                    <div>
+                        @Html.TextBoxFor(model => model.TaiKhoan,null,new { @placeholder="Tên Tài Khoản"})
+                        @Html.ValidationMessageFor(model => model.TaiKhoan, null, new { @style="color:red" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model=>model.HoTen, null, new { @placeholder = "Họ Tên" })
+                        @Html.ValidationMessageFor(model=>model.HoTen, null, new { @style = "color:red" })
+                    </div>
 
-                <div>
-                    <span> @Html.LabelFor(model => model.DiaChi)</span>
-                   @Html.TextBoxFor(model => model.DiaChi)
-                @Html.ValidationMessageFor(model => model.DiaChi)
+                    <div>
+                        @Html.TextBoxFor(model => model.DiaChi, null, new { @placeholder = "Địa Chỉ" })
+                        @Html.ValidationMessageFor(model => model.DiaChi, null, new { @style = "color:red" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Email, null, new { @placeholder = "Email" })
+                        @Html.ValidationMessageFor(model => model.Email, null, new { @style = "color:red" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.SoDienThoai, null, new { @placeholder = "Số Điện Thoại" })
+                        @Html.ValidationMessageFor(model => model.SoDienThoai, null, new { @style = "color:red" })
+                    </div>
                 </div>
-                <div>
-                    <span> @Html.LabelFor(model => model.Email)</span>
-                   @Html.TextBoxFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-                </div>
-                <a class="news-letter" href="#">
-                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
-                </a>
-            </div>
-            <div class="col-md-4 register-bottom-grid register-top-grid" style="float:right">
-                <h3>Thong Tin Dang Nhap</h3>
-                <div>
-                    <span> @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })</span>
-                   @Html.TextBoxFor(model => model.MatKhau)
-                @Html.ValidationMessageFor(model => model.MatKhau)
-                </div>
-                <div>
-                    <span> @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })</span>
-                  @Html.TextBoxFor(model => model.MatKhau)
-                @Html.ValidationMessageFor(model => model.MatKhau)
-                </div>
-                <div>
-                    <span> @Html.LabelFor(model => model.CauHoi, htmlAttributes: new { @class = "control-label col-md-2" })</span>
-                    @Html.TextBoxFor(model => model.CauHoi)
-                    @Html.ValidationMessageFor(model => model.CauHoi)
-                </div>
-                
-                <div>
-                    <span> @Html.LabelFor(model => model.CauTraLoi, htmlAttributes: new { @class = "control-label col-md-2" })</span>
-                   @Html.TextBoxFor(model => model.CauTraLoi)
-                @Html.ValidationMessageFor(model => model.CauTraLoi)
-                </div>
-                <h2 style="text-size-adjust:auto;">@ViewBag.ThongBao</h2>
-                <div>
-                    @Html.Captcha(5)
-                    @*@Html.MathCaptcha()*@
-                </div>
-                <input type="submit" value="submit">
+                <div class="col-md-4 register-bottom-grid register-top-grid" style="float:right">
+                    <div>
+                        @Html.TextBoxFor(model => model.MatKhau, null, new { @placeholder = "Mật Khẩu" ,@type="password"})
+                        @Html.ValidationMessageFor(model => model.MatKhau, null, new { @style = "color:red" })
+                    </div>
+                    <div>
+                        @Html.TextBox("Matkhaure", null, new { @placeholder = "Nhập Lại Mật Khẩu", @type = "password" })
+                        @Html.ValidationMessageFor(model => model.MatKhau, null, new { @style = "color:red" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.CauHoi, null, new { @placeholder = "Câu Hỏi Bí Mật" })
+                        @Html.ValidationMessageFor(model => model.CauHoi, null, new { @style = "color:red" })
+                    </div>
 
+                    <div>
+                        @Html.TextBoxFor(model => model.CauTraLoi, null, new { @placeholder = "Câu Trả Lời" })
+                        @Html.ValidationMessageFor(model => model.CauTraLoi, null, new { @style = "color:red" })
+                    </div>
+                    <div>
+                        @*@Html.MathCaptcha()*@
+                        @Html.Captcha(exampleCaptcha)
+                        @Html.TextBox("CaptchaCode")
+                    </div>
+                    <input type="submit" value="submit">
+                </div>
+                <div class="clearfix"> </div>
             </div>
-            <div class="clearfix"> </div>
         }
+    
     </div>
 <!--//content-->
 

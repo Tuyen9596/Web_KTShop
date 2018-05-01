@@ -1,6 +1,6 @@
 ﻿@using Web.Models;
 <body>
-    <div class="header-top">
+    <div class="header-top" >
         <div class="container">
             <div class="search ">
                 @*Tìm kiếm*@
@@ -15,14 +15,22 @@
                     @if (Session["TaiKhoan"] != null)
                     {
                         ThanhVien tv = (ThanhVien)Session["TaiKhoan"];
-                        <li style="color:blue">Chao Ban : @tv.HoTen....</li>
-                        <li>@Html.ActionLink("Đăng Xuất", "DangXuat", "HomeLayout",null,new { id="logout",@class= "btn btn-danger btn-xs" })</li>
-                         
+                         <!-- Single button -->
+                        <div class="btn-group" >
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                @tv.TaiKhoan <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" style="color:black">
+                                <li><a href="#" style="color:black">@tv.HoTen</a></li>
+                                <li><a href=@Url.Action( "DangXuat", "HomeLayout") style="color:black">Đăng Xuất</a></li>
+                                <li><a href="#" style="color:black">Giỏ Hàng</a></li>
+                            </ul>
+                        </div>
                     }
                     else
                     {
                         <li><a href="#" id="btnlogin">Đăng Nhập</a></li>
-                        <li><a href="#">Đăng Ký</a></li>
+                        <li><a href=@Url.Action("DangKy","HomeLayout")>Đăng Ký</a></li>
                     }
                     <li>@Html.Action("GioHangPartial", "GioHang")</li>
                 </ul>
@@ -35,20 +43,20 @@
     </div>
     <div>
         <div id="popup_login" style="display:none!important">
-            <div class="login-form" id="login-form">
-                <div style="clear:both;text-align:right;margin-bottom:0;">
+            <div class="login-form" id="login-form" ">
+                <div style="clear:both;text-align:right;margin-top:0;margin-right:0;">
                     <span id="close-form" class="btn btn-danger">X</span>
                 </div>
                 <div class="form-info" >
-                    @using (Html.BeginForm("Login", "HomeLayout", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
+                    @using (Html.BeginForm("Login", "HomeLayout"))
                     {
                         <input type="text" class="email" name="txtname" id="txtname" placeholder="Tài Khoản" required="" />
                             <input type="password" class="password" name="txtpass" id="txtpass" placeholder="Mật Khẩu" required="" />
                             <p><a href="#">Forgot password?</a></p>
-                            <span class="alert-warning" style="color:red; text-align:left;" id="ThongBao1"></span>
+                            <span class="alert-warning" style="color:red; text-align:left;" id="ThongBao"></span>
                             <ul class="login-buttons">
-                                <li ><input type="submit"  value="Đăng Nhập" /></li>
-                                <li ><a href="#" class="hvr-sweep-to-left" id="btndangky">Đăng Ký</a></li>
+                                <li ><input type="submit"  value="Đăng Nhập" class="btn-danger"/></li>
+                                <li ><a href=@Url.Action("DangKy","HomeLayout") class="btn btn-danger hvr-sweep-to-left">Đăng Ký</a></li>
                             </ul>
                     }
                 </div>

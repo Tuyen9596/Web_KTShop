@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -12,9 +13,7 @@ namespace XayDungWeb.Models
     {
         internal sealed class ThanhVienMetadata
         {//Danh sách các thuộc tính}
-            [DisplayName("Mã Thành Viên")]
-            [Required(ErrorMessage = "{0} không được để trống")]
-            [Range(1, 5, ErrorMessage = "{0} phảitừ{1} đến{2}")]
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public int MaTV { get; set; }
             [DisplayName("Tài Khoản")]
             [Required(ErrorMessage = "{0} không được để trống")]
@@ -43,7 +42,6 @@ namespace XayDungWeb.Models
             [Required(ErrorMessage = "{0} không được để trống")]
             public string CauTraLoi { get; set; }
             [DisplayName("Mã Loại Thành Viên")]
-            [Required(ErrorMessage = "{0} không được để trống")]
             public Nullable<int> MaLoaiTV { get; set; }
 
 

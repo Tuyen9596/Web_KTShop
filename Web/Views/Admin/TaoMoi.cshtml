@@ -6,12 +6,14 @@
 }
 @* b1;Chèn link javascript suwr dung datepicker*@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 @* Chen js suw dung tiny bieen soan html multimedia *@
 <script src="~/Content/tinymce/js/tinymce/tinymce.min.js"></script>
-<script>
+<script src="~/Content/js/plugin/ckeditor/ckeditor.js"></script>
+<script src="~/Content/js/plugin/ckfinder/ckfinder.js"></script>
+@*<script>
     //editor TExt
     tinymce.init({
         selector: 'textarea', //id,class muoon dinh dang
@@ -27,7 +29,8 @@
         //  '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
         //  '//www.tinymce.com/css/codepen.min.css']
     });
-</script>
+</script>*@
+
 <script>
   $( function() {
     $( "#datepicker" ).datepicker();
@@ -41,12 +44,11 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Sản Phẩm</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.TenSP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
             </div>
@@ -54,105 +56,68 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.DonGia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.NgayCapNhat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+            <div class="col-md-3">
               <input type="text" id="datepicker" name="NgayCapNhat" class="form-control">
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CauHinh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.CauHinh, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.CauHinh, new { htmlAttributes = new { @class = "CauHinh" } })
                 @Html.ValidationMessageFor(model => model.CauHinh, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.TextArea("MoTa", new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
             </div>
         </div>
+        <script>
+                CKEDITOR.replace('CauHinh');
+                CKEDITOR.replace('MoTa');
+        </script>
+
         @* Tạo 1 thẻ input voi type la file đe up hinh anh tu local len *@
         <div class="form-group">
-            @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                <input name="HinhAnh" type="file"/>
-                @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div >
+                    <input name="HinhAnh" type="file" />
+                    @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Hinhanh2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+            <div>
                 <input name="HinhAnh" type="file" />
                 @Html.ValidationMessageFor(model => model.Hinhanh2, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Hinhanh3, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+            <div>
                 <input name="HinhAnh" type="file" />
                 @Html.ValidationMessageFor(model => model.Hinhanh3, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Hinhanh4, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+            <div>
                 <input name="HinhAnh" type="file" />
                 @Html.ValidationMessageFor(model => model.Hinhanh4, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoLuongTon, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoLuongTon, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LuotXem, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.LuotXem, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LuotXem, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LuotBinhChon, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.LuotBinhChon, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LuotBinhChon, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LuotBinhLuan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.LuotBinhLuan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LuotBinhLuan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoLanMua, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.SoLanMua, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoLanMua, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Moi, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -181,19 +146,9 @@
             @Html.DropDownList("MaLoaiSP", null, new { @class = "form-control" })             
              </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DaXoa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.DaXoa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DaXoa, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>

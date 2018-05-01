@@ -7,73 +7,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New Store A Ecommerce Category Flat Bootstarp Resposive Website Template | Signle :: w3layouts</title>
-    <link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <title>KT-Shop</title>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="/Scripts/jquery-3.0.0.min.js"></script>
     <!-- Custom Theme files -->
     <!--theme-style-->
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--fonts-->
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'><!--//fonts-->
     <!-- start menu -->
-    <link href="~/Content/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
-    <script type="text/javascript" src="~/Content/js/memenu.js"></script>
+    <link href="/Content/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="/Content/js/memenu.js"></script>
     <script>$(document).ready(function(){$(".memenu").memenu();});</script>
     <script src="~/Content/js/simpleCart.min.js"> </script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <link href="~/Content/css/style_login_form.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <!--header-->
     <div class="header">
         @Html.Partial("~/Views/Layout/HeaderTopPartial.cshtml")
-        @*<div class="header-top">
-            <div class="container">
-                <div class="search">
-                    <form>
-                        <input type="text" value="Search " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-                        <input type="submit" value="Go">
-                    </form>
-                </div>
-                <div class="header-left">
-                    <ul>
-                        <li><a class="lock" href="login.html">Login</a></li>
-                        <li><a class="lock" href="register.html">Register</a></li>
-                        <li>
-                        </li>
-
-                    </ul>
-                    <div class="cart box_1">
-                        <a href="checkout.html">
-                            
-                                <div class="total">
-                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
-                                </div>
-                                <img src="images/cart.png" alt="" />
-                            
-                        </a>
-                        <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>*@
         <div class="container">
             <div class="head-top">
                 <div class="logo">
-                    <a href="index.html"><img src="~/Content/images/logo.png" alt=""></a>
+                    <a href=@Url.Action("Index","HomeLayout")><img src="~/Content/images/1_Primary_logo_on_transparent_378x63.png"  width="150" height="50" alt=""></a>
                 </div>
                 @Html.Action("MenuPartial","HomeLayout")
                 <div class="clearfix"> </div>

@@ -38,17 +38,18 @@ namespace Web.Controllers
                     var path = Path.Combine(Server.MapPath("~/Content/images"), filename);
                     if (System.IO.File.Exists(path))
                     {
-                        ViewBag.upload[i] = "Hinh Anh Đã Tồn Tại";
+                      //  ViewBag.upload[i] = "Hinh Anh Đã Tồn Tại";
                         return View();
                     }
                     else
                     {
-                        HinhAnh[0].SaveAs(path);
+                        HinhAnh[i].SaveAs(path);
                         sp.HinhAnh = HinhAnh[0].FileName;
                     }
                     db.SanPham.Add(sp);
                     db.SaveChanges();
-                } }
+                }
+            }
             return RedirectToAction("Index");
         }
     }

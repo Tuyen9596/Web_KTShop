@@ -1,10 +1,11 @@
 ﻿@using Web.Models;
-@model IEnumerable<SanPham>
+@model PagedList.IPagedList<SanPham>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/AdminLayout.cshtml";
  }
-@{
+@*@{
     WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
 }
 @grid.GetHtml(
@@ -17,10 +18,60 @@
     columns: grid.Columns(
         grid.Column("MaSP", "ID"),
         grid.Column("TenSP", "Name"),
-        grid.Column("MoTa", "Mô Tả", format: p => @Html.Raw("<img width=\"150\" height=\"150\" src=\"../Content/images/"+p.HinhAnh+"\"")),
-        grid.Column(format: p => @Html.ActionLink("Chinh Sửa", "ChinhSua", new {id=p.MaSP })),
-         grid.Column(format: p => @Html.ActionLink("Xóa ", "Xoa", new { id = p.MaSP }))
+        grid.Column("HinhAnh", "Hình Ảnh", format: p => @Html.Raw("<img width=\"150\" height=\"120\" src=\"../Content/images/"+p.HinhAnh+"\"")),
+        grid.Column(format: p => @Html.ActionLink("_", "ChinhSua", new {id=p.MaSP },new { @class = "fas fa-edit fa-2x" })),
+         grid.Column(format: p => @Html.ActionLink("_ ", "Xoa", new { id = p.MaSP },new { @class = "far fa-trash-alt fa-2x" }))
         )
-)
+)*@
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+@using (Ajax.BeginForm("searchProductPartial", new AjaxOptions { UpdateTargetId = "KQTimKiem", InsertionMode = InsertionMode.Replace }))
+{
+    <div id="search" style="margin-left:300px" class="row form-group">
+        <div class="col-md-4">
+            @Html.TextBox("sTuKhoa", "", new { @class = "form-control ", placeholder = "Nhập từ khóa...", value = @ViewBag.stringSearch, @id = "txtsearch" })
+        </div>
+        <div class="col-md-4">
+            <input type="submit" id="btnTimKiem" class="btn btn-success " value="Tìm Kiếm" />
+        </div>
+    </div>
+}
+
+<p class="home"><a href="#">Home</a> > <strong> Sản Phẩm</strong></p>
+<div class="total-sales">
+    <div id="KQTimKiem">
+        <table class="table table-bordered table-striped table-hover">
+            <thead style="color:darkblue; background-color:aqua">
+                <tr>
+                    <td>ID</td>
+                    <td>Product Name</td>
+                    <td>Image</td>
+                    <td>Price</td>
+                    <td>Number of OutStanding</td>
+                    <td></td>
+                </tr>
+            </thead>
 
 
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-mid-1">@item.MaSP</td>
+                    <td class="col-mid-2">@item.TenSP</td>
+                    <td class="col-mid-2"><img src="/Content/images/@item.HinhAnh" alt="No Image" height="150" width="150" /></td>
+                    <td class="col-mid-2">@item.DonGia</td>
+                    <td class="col-mid-1">@item.SoLuongTon</td>
+                <td class="col-mid-1" style="">
+                    @Html.ActionLink(".", "ChinhSua", new { id = @item.MaSP }, new { @class = "fas fa-edit fa-2x" }) ||
+                    @Html.ActionLink(".", "Xoa", new { id = @item.MaSP }, new { @class = "far fa-trash-alt fa-2x" })
+                </td>
+            </tr>
+            }
+        </table>
+        <div class="clearfix"></div>
+    </div>
+    <div class="dlink" style="margin-left:500px">
+        Trang :@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { @sTuKhoa = ViewBag.stringSearch, page = page }))
+    </div>
+</div>
