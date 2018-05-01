@@ -24,6 +24,10 @@
                                 <li><a href="#" style="color:black">@tv.HoTen</a></li>
                                 <li><a href=@Url.Action( "DangXuat", "HomeLayout") style="color:black">Đăng Xuất</a></li>
                                 <li><a href="#" style="color:black">Giỏ Hàng</a></li>
+                                @if (tv.LoaiThanhVien.TenLoai.Trim() == "Admin")
+                                {
+                                    <li><a href=@Url.Action("Index","QuanLySanPham") style="color:black">Trang Quản Trị</a></li>
+                                }
                             </ul>
                         </div>
                     }

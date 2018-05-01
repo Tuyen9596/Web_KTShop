@@ -17,24 +17,24 @@
         <EntityTypeShape EntityType="QuanLyBanHangModel.NhaSanXuat" Width="1.5" PointX="0.75" PointY="1.5" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.PhieuNhap" Width="1.5" PointX="3" PointY="11.5" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.Quyen" Width="1.5" PointX="3.75" PointY="24" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.SanPham" Width="1.5" PointX="3" PointY="2.875" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.ThanhVien" Width="1.5" PointX="3" PointY="15.125" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_BinhLuan_SanPham" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_BinhLuan_ThanhVien" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_DDH" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_SP" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietPhieunhap_PhieuNhap" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietPhieunhap_SP" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_DonDatHang_KhachHang" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_KhachHang_ToTable" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_LoaiSP" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_LoaiThanhVien_Quyen_LoaiThanhVien" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_ThanhVien_ToTable" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_LoaiThanhVien_Quyen" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_PhieuNhap_PhieuNhap" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.SanPham" Width="1.5" PointX="3" PointY="2.75" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_BinhLuan_SanPham" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_SP" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietPhieunhap_SP" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_LoaiSP" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_NCC" />
         <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_NSX" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

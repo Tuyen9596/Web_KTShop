@@ -37,7 +37,7 @@ namespace Web.Models
         public virtual DbSet<NhaSanXuat> NhaSanXuat { get; set; }
         public virtual DbSet<PhieuNhap> PhieuNhap { get; set; }
         public virtual DbSet<Quyen> Quyen { get; set; }
-        public virtual DbSet<SanPham> SanPham { get; set; }
         public virtual DbSet<ThanhVien> ThanhVien { get; set; }
+        public virtual DbSet<SanPham> SanPham { get; set; }
     }
 }
