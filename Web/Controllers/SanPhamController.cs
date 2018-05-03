@@ -36,9 +36,17 @@ namespace Web.Controllers
         }
         public ActionResult SanPham(int? maloaisp, int? mansx, int? page)
         {
-            if (mansx == null || maloaisp == null)
+            int pagesize = 8;
+            int pagenumber = page ?? 1;
+            if (mansx == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var lstSP = db.SanPham.Where(m => m.MaLoaiSP == maloaisp);
+                return View(lstSP.OrderBy(n => n.MaSP).ToPagedList(pagenumber, pagesize));
+            }
+            if (maloaisp == null)
+            {
+                var lstSP = db.SanPham.Where(m => m.MaNSX == mansx);
+                return View(lstSP.OrderBy(n => n.MaSP).ToPagedList(pagenumber, pagesize));
             }
 
             var lstsp = db.SanPham.Where(m => m.MaNSX == mansx && m.MaLoaiSP == maloaisp);
@@ -50,8 +58,7 @@ namespace Web.Controllers
             }
             ViewBag.sp = lstsp;
             ViewBag.lstSP = db.SanPham;
-            int pagesize = 2;
-            int pagenumber = page ?? 1;
+           
             ViewBag.MaLoaiSP = maloaisp;
             ViewBag.MaNSX = mansx;
             return View(lstsp.OrderBy(n => n.MaSP).ToPagedList(pagenumber, pagesize));

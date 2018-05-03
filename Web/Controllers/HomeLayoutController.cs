@@ -83,7 +83,7 @@ namespace Web.Controllers
             return Content("Tai Khoan Khong Ton Tai");
         }
         [HttpPost]
-        public ActionResult Login(FormCollection f)
+        public ActionResult Login(FormCollection f,string url)
         {
             string txtTaiKhoan= f["txtname"].ToString();
             string txtMatKhau = f["txtpass"].ToString();
@@ -95,7 +95,7 @@ namespace Web.Controllers
             }
             else if(checkMatKhau == null)
             {
-                return Content("Mật Khẩu Sai");
+                return RedirectToAction(url);
             }
 
             ThanhVien tv = db.ThanhVien.SingleOrDefault(n => n.TaiKhoan == txtTaiKhoan && n.MatKhau == txtMatKhau);
@@ -115,7 +115,7 @@ namespace Web.Controllers
                 PhanQuyen(txtTaiKhoan, Quyen);
                 //Xử lý phương thức phân quyền
                 Session["TaiKhoan"] = tv;
-                return RedirectToAction("Index");
+                return RedirectToAction(url,"HomeLayout");
             }
             return Content("Đăng Nhập Thất Bại!! Xin Hãy Thử Lại");
 

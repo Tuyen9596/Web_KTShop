@@ -10,10 +10,14 @@
 <div class="col-md-9 product1">
         @foreach (var item in Model.OrderBy(x => x.DonGia))
         {
-            <div class="col-md-3 grid-top">
+            <div class="col-md-4 grid-top" style="margin-bottom:20px">
                 <a href="@Url.Action("Xemchitiet", new { id = item.MaSP, @tensp = item.TenSP })" class="b-link-stripe b-animate-go  thickbox">
-                    <img class="img-responsive" src="@Url.Content("~/Content/images/" + item.HinhAnh)" alt="" style="width:180px!important;height:135px!important">
-
+                    <img class="img-responsive" src="@Url.Content("~/Content/images/" + item.HinhAnh)" alt="" style="width:180px!important;height:200px!important">
+                    <div class="b-wrapper">
+                        <h1 class="b-animate b-from-left b-delay03 ">
+                            <span style="font-size:14px!important;padding-top:14px!important">@item.TomTat</span>
+                        </h1>
+                    </div>
                     <p style="text-align:center;font-size:12px"><a >@item.TenSP</a></p>
                 </a>
                 @*<a href="@Url.Action("ThemGioHang","GioHang",new {MaSP=item.MaSP,url=Request.Url.ToString() })" class="btn btn-lg">  </a>*@
@@ -25,8 +29,9 @@
             </div>
         }
         <div class="clearfix"></div>
-    </div>
+</div>
+<hr />
 <div class="dlink">
-    Trang :@(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+    @*Trang :@(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount*@
     @Html.PagedListPager(Model,page=>Url.Action("SanPham",new {@maloaisp=ViewBag.MaLoaiSP,@mansx=ViewBag.MaNSX, page = page }))
 </div>

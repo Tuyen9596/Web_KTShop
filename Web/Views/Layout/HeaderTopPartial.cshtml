@@ -52,7 +52,7 @@
                     <span id="close-form" class="btn btn-danger">X</span>
                 </div>
                 <div class="form-info" >
-                    @using (Html.BeginForm("Login", "HomeLayout"))
+                    @using (Ajax.BeginForm("Login", "HomeLayout",new { @url=Request.Url.ToString()},new AjaxOptions {HttpMethod="Post", }))
                     {
                         <input type="text" class="email" name="txtname" id="txtname" placeholder="Tài Khoản" required="" />
                             <input type="password" class="password" name="txtpass" id="txtpass" placeholder="Mật Khẩu" required="" />
