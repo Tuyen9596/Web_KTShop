@@ -15,19 +15,39 @@ namespace Web
             //goi file capctcha
             routes.IgnoreRoute("{*Botdetect}",
                 new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
-            //Tao duong dan cho trabg xem chi tiet
+            //Tao duong dan cho trabg San Pham
+            // routes.MapRoute(
+            //    name: "XemTenSanPham",
+            //    url: "{maloaisp}",
+            //     defaults: new { controller = "SanPham", action = "SanPham", id = UrlParameter.Optional }
+            //);
+            //  routes.MapRoute(
+            //    name: "XemSanPhamThuongHieu",
+            //    url: "{maloaisp}-{mansx}",
+            //     defaults: new { controller = "SanPham", action = "SanPham", id = UrlParameter.Optional }
+            //);
             routes.MapRoute(
-               name: "xemchitiet",
-               url: "Xem-Chi-Tiet",
-                defaults: new { controller = "SanPham", action = "Xemchitiet", id = UrlParameter.Optional }
+                name: "DangKy",
+                url: "register",
+                 defaults: new { controller = "HomeLayout", action = "DangKy", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+               name: "XemSanPham",
+               url: "{maloaisp}-{mansx}",
+                defaults: new { controller = "SanPham", action = "SanPham", id = UrlParameter.Optional }
            );
             //Cau hinh duong dan co tham so cho trang xem chi tiet
+            //routes.MapRoute(
+            //   name: "XemchitietSP",
+            //   url: "{id}-{tensp}",
+            //    defaults: new { controller = "SanPham", action = "Xemchitiet", id = UrlParameter.Optional }
+            //);
             routes.MapRoute(
-               name: "XemchitietSP",
-               url: "{tensp}-{id}",
-                defaults: new { controller = "SanPham", action = "Xemchitiet", id = UrlParameter.Optional }
-            );
+                name: "XemChiTietSP",
+                url: "Product/Details-{id}-{tensp}",
+                               defaults: new { controller = "SanPham", action = "Xemchitiet", id = UrlParameter.Optional }
 
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

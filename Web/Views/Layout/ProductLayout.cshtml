@@ -1,15 +1,10 @@
-﻿<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>KT-Shop</title>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/Scripts/jquery-3.0.0.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <link href="/Content/css/memenu.css" rel="stylesheet" />
     <!-- Custom Theme files -->
     <!--theme-style-->
     <link href="/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -24,20 +19,61 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="/Content/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
     <script type="text/javascript" src="/Content/js/memenu.js"></script>
     <script>$(document).ready(function(){$(".memenu").memenu();});</script>
-    <script src="~/Content/js/simpleCart.min.js"> </script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <link href="~/Content/css/style_login_form.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="/Content/js/simpleCart.min.js"> </script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="/Content/css/style_login_form.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+    <script src="/Content/js/plugin/jquery.flexslider-min.js"></script>
+    <link href="/Content/js/plugin/flexslider/flexslider.css" rel="stylesheet" />
+    <script src="/Content/js/login_form.js"></script>
+    <style>
+        #KQTimKiem {
+            padding-top: 3em;
+        }
+
+        #search {
+            align-items: center;
+            margin-bottom: 15px;
+            margin-left: 400px;
+            margin-top: 0;
+        }
+
+        .src {
+            margin-bottom: 30px;
+        }
+    </style>
+
 </head>
 <body>
+    @*<div style="height: 800px">
+        Content
+        <div id="back-top" title="Top of Page">&uarr;</div>
+    </div>*@
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.0&appId=1534290010015660&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
     <!--header-->
     <div class="header">
-        @Html.Partial("~/Views/Layout/HeaderTopPartial.cshtml")
+        @Html.Partial("/Views/Layout/HeaderTopPartial.cshtml")
         <div class="container">
             <div class="head-top">
                 <div class="logo">
-                    <a href=@Url.Action("Index","HomeLayout")><img src="~/Content/images/1_Primary_logo_on_transparent_378x63.png"  width="150" height="50" alt=""></a>
+                    <a href=@Url.Action("Index","HomeLayout")><img src="/Content/images/1_Primary_logo_on_transparent_378x63.png"  width="150" height="50" alt=""></a>
                 </div>
                 @Html.Action("MenuPartial","HomeLayout")
                 <div class="clearfix"> </div>
@@ -55,6 +91,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             
             <div class="clearfix"> </div>
         </div>
+    </div>
+    <div>
+        <a href="#"><i class="fas fa-angle-double-up fa-3x" id="cuon" aria-hidden="true"></i></a>
     </div>
     <!--//content-->
     <div class="footer">
@@ -89,3 +128,53 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </body>
 </html>
+<style>
+    .b {
+        float: right;
+    }
+
+    body {
+        padding-top: 0px;
+    }
+
+    p {
+        color: #0C0;
+    }
+
+    #cuon {
+          text-align:center;
+        display: block;
+        width: 40px;
+        height: 40px;
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        border-radius: 10px;
+        border: 3px solid #ccc;
+    }
+
+    .sc {
+        font-size: 25px;
+        text-align: center;
+        padding-top: 4px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        //scroll to top
+        (function () {
+            $('#cuon').click(function () {
+                $('body,html').animate({ scrollTop: 0 }, 600);
+                return false;
+            })
+        })(jQuery);
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == 0) {
+                $('#cuon').stop(false, true).fadeOut(300);
+            } else {
+                $('#cuon').stop(false, true).fadeIn(300);
+            }
+        });
+
+    })
+</script>

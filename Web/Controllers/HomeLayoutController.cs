@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Web.Models;
 using System.Web.Security;
 using BotDetect.Web.Mvc;
+using Facebook;
+using System.Configuration;
 
 namespace Web.Controllers
 {
@@ -18,17 +20,18 @@ namespace Web.Controllers
         {
             //lan luot tao cac viewbag de lay list SP tu CSDL
             //dien thoai moi nhat
-            var listdienthoai = db.SanPham.Where(x=>x.MaLoaiSP==2&&x.Moi==1 &&x.DaXoa==false);
+            var listdienthoai = db.SanPham.Where(x=>x.MaLoaiSP==2&&x.Moi==1 &&x.DaXoa==false).ToList();
             ViewBag.lstDT = listdienthoai;
-            var listmtb= db.SanPham.Where(x => x.MaLoaiSP == 3 && x.Moi == 1 && x.DaXoa == false);
+            var listmtb= db.SanPham.Where(x => x.MaLoaiSP == 3 && x.Moi == 1 && x.DaXoa == false).ToList();
             ViewBag.lstmtb = listmtb;
-            var listlaptop= db.SanPham.Where(x => x.MaLoaiSP==1&&x.Moi == 1 && x.DaXoa == false);
+            var listlaptop= db.SanPham.Where(x => x.MaLoaiSP==1&&x.Moi == 1 && x.DaXoa == false).ToList();
             ViewBag.lstLT = listlaptop;
             return View();
         }
+        [ChildActionOnly]
         public ActionResult MenuPartial()
         {
-            var listSP = db.SanPham;
+            var listSP = db.SanPham.ToList();
             return PartialView(listSP);
         }
         [HttpGet]
@@ -69,34 +72,54 @@ namespace Web.Controllers
             list.Add("Bạn là nam hay nữ");
             return list;
         }
-        public ActionResult DangNhap( FormCollection f)
+        public bool checkUser(string user)
         {
-            // Kiem tra dang nhap
-            string taikhoan = f["txtname"].ToString();
-            string pass = f["txtpass"].ToString();
-            ThanhVien tv = db.ThanhVien.SingleOrDefault(x => x.TaiKhoan == taikhoan && x.MatKhau == pass);
-            if(tv!=null)
-            {
-                Session["TaiKhoan"] = tv;
-                return View("Index");
-            }
-            return Content("Tai Khoan Khong Ton Tai");
+            if (db.ThanhVien.Where(x => x.TaiKhoan == user).Count() > 0)
+                return true;
+            return false;
         }
-        [HttpPost]
-        public ActionResult Login(FormCollection f,string url)
+        public ActionResult LoginFaceBook()
         {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["AppID"],
+                client_secret = ConfigurationManager.AppSettings["AppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email",
+            });
+            return View();
+        }
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Login(FormCollection f)
+        {
+            string msg="fail";
             string txtTaiKhoan= f["txtname"].ToString();
             string txtMatKhau = f["txtpass"].ToString();
-            var checktaikhoan = db.ThanhVien.Where(x => x.TaiKhoan == txtTaiKhoan);
-            var checkMatKhau = db.ThanhVien.Where(x => x.MatKhau == txtMatKhau);
-            if (checktaikhoan == null)
+            var checktaikhoan = db.ThanhVien.Where(x => x.TaiKhoan == txtTaiKhoan).ToList();
+            var checkMatKhau = db.ThanhVien.Where(x => x.MatKhau == txtMatKhau).ToList();
+            if (checktaikhoan.Count == 0)
             {
-                return Content("Tài Khoản Không Tồn Tại");
+                msg = "saitk";
             }
-            else if(checkMatKhau == null)
+            else if (checkMatKhau.Count == 0)
             {
-                return RedirectToAction(url);
+                msg = "saimk";
             }
+            else msg = "success";
 
             ThanhVien tv = db.ThanhVien.SingleOrDefault(n => n.TaiKhoan == txtTaiKhoan && n.MatKhau == txtMatKhau);
             if (tv != null)
@@ -115,11 +138,22 @@ namespace Web.Controllers
                 PhanQuyen(txtTaiKhoan, Quyen);
                 //Xử lý phương thức phân quyền
                 Session["TaiKhoan"] = tv;
-                return RedirectToAction(url,"HomeLayout");
             }
-            return Content("Đăng Nhập Thất Bại!! Xin Hãy Thử Lại");
+            return Content(msg,"text/plain");
 
         }
+        //public JsonResult CheckValidUser(SiteUser model)
+        //{
+        //    string result = "Fail";
+        //    var DataItem = db.SiteUsers.Where(x => x.Email == model.Email && x.Password == model.Password).SingleOrDefault();
+        //    if (DataItem != null)
+        //    {
+        //        Session["UserID"] = DataItem.ID.ToString();
+        //        Session["UserName"] = DataItem.Username.ToString();
+        //        result = "Success";
+        //    }
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
 
         private void PhanQuyen(string TaiKhoan, string Quyen)
         {
@@ -148,15 +182,15 @@ namespace Web.Controllers
         {
             return View();
         }
-        public ActionResult DangXuat()
+        public ActionResult DangXuat(string url)
         {
             Session["TaiKhoan"] = null;
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
+            return Redirect(url);
         }
         public ActionResult MenuProductLeftPartial()
         {
-            var listSP1 = db.SanPham;
+            var listSP1 = db.SanPham.ToList();
             ViewBag.lstSP1 = listSP1;
             return PartialView(listSP1);
         }

@@ -10,9 +10,9 @@
 <div class="col-md-9 product1">
         @foreach (var item in Model.OrderBy(x => x.DonGia))
         {
-            <div class="col-md-4 grid-top" style="margin-bottom:20px">
+            <div class="col-md-3 grid-top" style="margin-bottom:20px">
                 <a href="@Url.Action("Xemchitiet", new { id = item.MaSP, @tensp = item.TenSP })" class="b-link-stripe b-animate-go  thickbox">
-                    <img class="img-responsive" src="@Url.Content("~/Content/images/" + item.HinhAnh)" alt="" style="width:180px!important;height:200px!important">
+                    <img class="img-responsive" src="@Url.Content("~/Content/images/" + item.HinhAnh)" alt="" style="width:180px!important;height:180px!important">
                     <div class="b-wrapper">
                         <h1 class="b-animate b-from-left b-delay03 ">
                             <span style="font-size:14px!important;padding-top:14px!important">@item.TomTat</span>
@@ -22,16 +22,21 @@
                 </a>
                 @*<a href="@Url.Action("ThemGioHang","GioHang",new {MaSP=item.MaSP,url=Request.Url.ToString() })" class="btn btn-lg">  </a>*@
                 <p class="number item_price"><i></i> @item.DonGia.Value.ToString("#,##") VNĐ</p>
-                <span class="btn btn-warning">
+                <span >
                     @Ajax.ActionLink("Thêm Giỏ Hàng", "ThemGioHangAjax", "GioHang", new { MaSP = item.MaSP, url = Request.Url.ToString(), @class = "item_add" }
-               , new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)
+               , new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class="btn btn-warning abc"})
                 </span>
             </div>
         }
         <div class="clearfix"></div>
 </div>
 <hr />
-<div class="dlink">
+<div class="dlink" style="margin-left:500px!important;">
     @*Trang :@(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount*@
     @Html.PagedListPager(Model,page=>Url.Action("SanPham",new {@maloaisp=ViewBag.MaLoaiSP,@mansx=ViewBag.MaNSX, page = page }))
 </div>
+<style>
+    .pagination{
+       margin:0 auto;
+    }
+</style>

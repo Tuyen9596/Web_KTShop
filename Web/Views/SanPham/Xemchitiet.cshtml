@@ -2,11 +2,8 @@
 @model    SanPham
 @{
     ViewBag.Title = "Xemchitiet";
-    Layout = "~/Views/Layout/ProductLayout.cshtml";
+    Layout = "/Views/Layout/ProductLayout.cshtml";
 }
-<script defer src="~/Content/js/jquery.flexslider.js"></script>
-<link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen" />
-
 <div class="col-md-9 product-price1">
     <div class="col-md-5 single-top">
         <div class="flexslider">
@@ -28,34 +25,62 @@
         <!-- FlexSlider -->
 
         <script>
-                // Can also be used with $(document).ready()
+            // Can also be used with $(document).ready()
             $(document).ready(function () {
-                  $('.flexslider').flexslider({
+                $('.flexslider').flexslider({
                     animation: "slide",
                     controlNav: "thumbnails"
-                  });
                 });
+            });
         </script>
     </div>
     <div class="col-md-7 single-top-in simpleCart_shelfItem">
         <div class="single-para ">
             <h4>@Model.TenSP</h4>
 
-            <h5 class="item_price">@Model.DonGia.Value.ToString("#,##") VND</h5>
+            <h5 class="item_price">@Model.DonGia.Value.ToString("#,##") VND <span class="label label-warning" style="font-size:40%">Trả Góp 0%</span></h5>
             <div>
             </div>
-            @Ajax.ActionLink("Mua Ngay", "ThemGioHangAjax", "GioHang", new
-               {
-                   MaSP = Model.MaSP,
-                   url = Request.Url.ToString(),
-
-               },
-                       new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-warning" }
-                   )
-
-
 
         </div>
+        <div style="border:1px solid black;padding:20px;">
+            <strong>Khuyến mãi</strong>
+            <div class="info">
+                <span class="" data-g="Tặng" data-date="5/31/2018 11:00:00 PM" data-return="">
+                    <span class="glyphicon glyphicon-ok"></span>  Giảm ngay 1 triệu
+                    <label class="sao">*</label>
+                </span>
+                <br />
+                <span class="pro363743 " data-g="Tặng" data-date="5/31/2018 11:00:00 PM" data-return="">
+                    <span class="glyphicon glyphicon-ok"></span> Giảm ngay 1.000.000đ khi thanh toán Online bằng thẻ Mastercard (Từ 01/05 - 31/05)
+
+                </span>
+            </div>
+            <div class="clr"></div>
+            <div class="not-repay">* Không áp dụng khi mua trả góp 0%</div>
+        </div>
+        <br />
+        <div class="form-group col-md-4 " style="padding:0;">
+            @Ajax.ActionLink("Mua Ngay", "ThemGioHangAjax", "GioHang", new
+       {
+           MaSP = Model.MaSP,
+           url = Request.Url.ToString(),
+
+       },
+              new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace },new { @class= "btn btn-warning" }
+            )
+        </div>
+        <br />
+        <div class="btn-group bypay" style="margin:5px;">
+            <span type="button" class="btn btn-primary " id="1">Mua Trả Góp 0%<br />Thủ Tục Đơn Giản</span>
+            <span type="button" class="btn btn-primary " id="2">Thanh Toán Bằng Thẻ<br />Visa,MasterCard</span>
+            <span type="button" class="btn btn-primary " id="2"> Chuyển Khoản<br />Agribank,VPBank</span>
+        </div>
+        <div class="fb-like b" data-href="http://localhost:58609" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true">
+
+        </div>
+
+
     </div>
     <div class="clearfix"> </div>
     <h3>Thông Tin Sản Phẩm</h3>
@@ -63,12 +88,16 @@
     <!---->
 </div>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9 pull-right">
         @Html.Raw(Model.MoTa)
     </div>
-    <div class="col-md-4" style="float:right">
+    <div class="col-md-3 pull-left">
+        <h3>Cấu Hình</h3>
         <span> @Html.Raw(Model.CauHinh)</span>
     </div>
+    <div class="clearfix"></div>
+    <hr />
+    <div class="fb-comments" data-href="http://localhost:58609" data-width="800" data-numposts="5"></div>
 </div>
 
 

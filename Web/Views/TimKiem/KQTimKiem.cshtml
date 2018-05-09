@@ -7,67 +7,61 @@
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <div>
-    @using (Ajax.BeginForm("KQTimKiemPartial", new AjaxOptions { UpdateTargetId = "KQTimKiem", InsertionMode = InsertionMode.Replace }))
+    <div>
+        @using (Ajax.BeginForm("KQTimKiemPartial", new AjaxOptions { UpdateTargetId = "KQTimKiem", InsertionMode = InsertionMode.Replace }))
     {
-        <div id="search">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="sTuKhoa" placeholder="nhập từ khóa...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-info" type="submit">Tìm</button>
-                    </span>
-                </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
-        </div>
+            <div id="search">
+                <div class="col-lg-6 src">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="sTuKhoa" placeholder="nhập từ khóa...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="submit">Tìm</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
     }
-</div>
-<div id="KQTimKiem">
-    <div class="col-md-12 product1">
-        <div class="bottom-product">
-            @foreach (var item in Model.OrderBy(x => x.DonGia))
+    </div>
+    <div id="KQTimKiem">
+        <div class="col-md-12 product1">
+            <div class="bottom-product">
+                @foreach (var item in Model.OrderBy(x => x.DonGia))
             {
-                <div class="col-md-3 grid-top" >
-                    <a href="@Url.RouteUrl("XemchitietSP",new { id=item.MaSP,@tensp=item.TenSP})" class="b-link-stripe b-animate-go  thickbox">
-                        <img class="img-responsive" src="@Url.Content("~/Content/images/" + item.HinhAnh)" style="width:180px!important;height:200px!important">
-                        <div class="b-wrapper">
-                            <h1 class="b-animate b-from-left b-delay03 ">
-                                <span style="font-size:14px!important;padding-top:14px!important">@item.TomTat</span>
-                            </h1>
-                        </div>
+                    <div class="col-md-3 grid-top">
+                        <a href="@Url.RouteUrl("XemchitietSP",new { id=item.MaSP,@tensp=item.TenSP})" class="b-link-stripe b-animate-go  thickbox">
+                            <img class="img-responsive" src="@Url.Content("~/Content/images/" + item.HinhAnh)" style="width:180px!important;height:200px!important">
+                            <div class="b-wrapper">
+                                <h1 class="b-animate b-from-left b-delay03 ">
+                                    <span style="font-size:14px!important;padding-top:14px!important">@item.TomTat</span>
+                                </h1>
+                            </div>
 
-                        <div class="pro-grid">
-                            <span class="buy">Buy Now</span>
-                        </div>
-                    </a>
-                    <p style="text-align:center;"><a href="#">@item.TenSP</a></p>
+                            <div class="pro-grid">
+                                <span class="buy">Buy Now</span>
+                            </div>
+                        </a>
+                        <p style="text-align:center;"><a href="#">@item.TenSP</a></p>
 
-                    @*<a href="@Url.Action("ThemGioHang","GioHang",new {MaSP=item.MaSP,url=Request.Url.ToString() })" class="btn btn-lg">  </a>*@
-                    <p class="number item_price"><i></i> @item.DonGia.Value.ToString("#,##") VNĐ</p>
-                    @Ajax.ActionLink("Thêm Giỏ Hàng", "ThemGioHangAjax", "GioHang", new
+                        @*<a href="@Url.Action("ThemGioHang","GioHang",new {MaSP=item.MaSP,url=Request.Url.ToString() })" class="btn btn-lg">  </a>*@
+                        <p class="number item_price"><i></i> @item.DonGia.Value.ToString("#,##") VNĐ</p>
+                        @Ajax.ActionLink("Thêm Giỏ Hàng", "ThemGioHangAjax", "GioHang", new
                {
                    MaSP = item.MaSP,
                    url = Request.Url.ToString(),
                },
                    new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-warning" })
 
-                </div>
+                    </div>
             }
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
+            </div>
         </div>
     </div>
+    <div class="dlink">
+        @*Trang :@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount*@
+        <span style="text-align:center">
+            @Html.PagedListPager(Model, page => Url.Action("KQTimKiem", new { @sTuKhoa = ViewBag.TuKhoa, page = page }))
+        </span>
+    </div>
 </div>
-<div class="dlink">
-    @*Trang :@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount*@
-    @Html.PagedListPager(Model, page => Url.Action("KQTimKiem", new { @sTuKhoa=ViewBag.TuKhoa, page = page }))
-</div>
-<style>
-    #KQTimKiem{
-        padding-top:3em;
-    }
-    #search{
-        align-items:center;
-        margin-bottom:15px;
-        margin-left:400px;
-    }
-</style>
 

@@ -20,7 +20,8 @@
                                             {
                                                 if (item.Key != null)
                                                 {
-                                                    <li><a href="@Url.Action("SanPham","SanPham",new {maloaisp=groupitem.Key.MaLoaiSP, mansx = item.Key.MaNSX })">@item.Key.TenNSX</a></li>
+                                                    <li ><a href="@Url.RouteUrl("XemSanPham",new {maloaisp=groupitem.Key.MaLoaiSP, mansx = item.Key.MaNSX })" class="color1"     >
+                                                        @item.Key.TenNSX</a></li>
                                                 }
                                             }
                                         </ul>
@@ -46,7 +47,7 @@
                             <ul>
                                 @foreach (var itemgroup in item.GroupBy(x => x.NhaSanXuat))
                                 {
-                                     <li><a href="@Url.Action("SanPham","SanPham",new {maloaisp=item.Key.MaLoaiSP, mansx = itemgroup.Key.MaNSX })">@itemgroup.Key.TenNSX</a></li>
+                                     <li><a class="color1" href="@Url.RouteUrl("XemSanPham",new {maloaisp=item.Key.MaLoaiSP, mansx = itemgroup.Key.MaNSX })" >@itemgroup.Key.TenNSX</a></li>
                                 }
                             </ul>
                         </div>
@@ -58,3 +59,8 @@
         </li>
     </ul>
 </div>
+<style>
+    a {
+        font-size:0.9em;
+    }
+</style>
