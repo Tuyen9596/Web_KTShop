@@ -21,7 +21,7 @@ namespace Web.Controllers
             int pagesize = 10;
             int pagenumber = page ?? 1;
             ViewBag.TuKhoa = sTuKhoa;
-            return View(db.SanPham.OrderBy(x=>x.TenSP).ToPagedList(pagenumber, pagesize)); ;
+            return View(db.SanPham.Where(x=>x.DaXoa==false).OrderBy(x=>x.TenSP).ToPagedList(pagenumber, pagesize)); ;
         }
         [HttpGet]
         public ActionResult ChinhSua(int? id)
@@ -62,6 +62,7 @@ namespace Web.Controllers
             return View();
           
         }
+        [HttpPost]
         public ActionResult Xoa(int id)//DaXOa=rue
         {
             //lay sp can xoa
@@ -73,15 +74,12 @@ namespace Web.Controllers
             SanPham sp = db.SanPham.SingleOrDefault(n => n.MaSP == id);
             if (sp == null)
             {
-                return HttpNotFound();
+                return null;
             }
 
-            ViewBag.MaNCC = new SelectList(db.NhaCC.OrderBy(x => x.MaNCC), "MaNCC", "TenNCC", sp.MaNCC);
-            ViewBag.MaLoaiSP = new SelectList(db.LoaiSanPham.OrderBy(x => x.MaLoaiSP), "MaLoaiSP", "TenLoai", sp.MaLoaiSP);
-            ViewBag.MaNSX = new SelectList(db.NhaSanXuat.OrderBy(x => x.MaNSX), "MaNSX", "TenNSX", sp.MaNSX);
             sp.DaXoa = true;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return View("Index");
         }
         public ActionResult ChuaThanhToan()
         {

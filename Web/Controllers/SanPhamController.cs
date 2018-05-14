@@ -18,6 +18,12 @@ namespace Web.Controllers
         {
             return PartialView();
         }
+        [ChildActionOnly]
+        public ActionResult MenuLeftPartial()
+        {
+            var lst=db.SanPham.OrderBy(x => x.LuotBinhChon);
+            return PartialView(lst);
+        }
         //Xay dung trang xem chi tiet
         public ActionResult Xemchitiet(int? id, string tensp)
         {

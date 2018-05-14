@@ -104,42 +104,45 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(FormCollection f)
+        public ActionResult Login(string user,string pass)
         {
-            string msg="fail";
-            string txtTaiKhoan= f["txtname"].ToString();
-            string txtMatKhau = f["txtpass"].ToString();
-            var checktaikhoan = db.ThanhVien.Where(x => x.TaiKhoan == txtTaiKhoan).ToList();
-            var checkMatKhau = db.ThanhVien.Where(x => x.MatKhau == txtMatKhau).ToList();
+            int msg=0;
+            var checktaikhoan = db.ThanhVien.Where(x => x.TaiKhoan == user).ToList();
+            var checkMatKhau = db.ThanhVien.Where(x => x.MatKhau == pass).ToList();
             if (checktaikhoan.Count == 0)
             {
-                msg = "saitk";
+                msg = 1;
+                return Content(msg.ToString());
             }
             else if (checkMatKhau.Count == 0)
             {
-                msg = "saimk";
+                msg = 2;
+                return Content(msg.ToString());
             }
-            else msg = "success";
-
-            ThanhVien tv = db.ThanhVien.SingleOrDefault(n => n.TaiKhoan == txtTaiKhoan && n.MatKhau == txtMatKhau);
-            if (tv != null)
+            else if(checkMatKhau.Count>0 && checktaikhoan.Count>0)
             {
-                //Truy cập lấy ra tất cả quyền của thành viên đó
-                var lstQuyen = db.LoaiThanhVien_Quyen.Where(n => n.MaLoaiTV == tv.MaLoaiTV);
-                string Quyen = "";
-                //Duyệt list quyền
-                foreach (var item in lstQuyen)
+                msg = 3;
+                ThanhVien tv = db.ThanhVien.SingleOrDefault(n => n.TaiKhoan == user && n.MatKhau == pass);
+                if (tv != null)
                 {
-                    Quyen += item.Quyen.TenQuyen + ",";
-                    //Lấy quyền trong bảng chi tiết quyền và loại thành viên“DangKy,QuanLyDonHang,QuanLySanPham,”
+                    //Truy cập lấy ra tất cả quyền của thành viên đó
+                    var lstQuyen = db.LoaiThanhVien_Quyen.Where(n => n.MaLoaiTV == tv.MaLoaiTV);
+                    string Quyen = "";
+                    //Duyệt list quyền
+                    foreach (var item in lstQuyen)
+                    {
+                        Quyen += item.Quyen.TenQuyen + ",";
+                        //Lấy quyền trong bảng chi tiết quyền và loại thành viên“DangKy,QuanLyDonHang,QuanLySanPham,”
+                    }
+                    Quyen = Quyen.Substring(0, Quyen.Length - 1);
+                    //Cắt đi dấu , cuối cùng (Chuỗi sau khi cắt: “DangKy,QuanLyDonHang,QuanLySanPham”
+                    PhanQuyen(user, Quyen);
+                    //Xử lý phương thức phân quyền
+                    Session["TaiKhoan"] = tv;
                 }
-                Quyen = Quyen.Substring(0, Quyen.Length - 1);
-                //Cắt đi dấu , cuối cùng (Chuỗi sau khi cắt: “DangKy,QuanLyDonHang,QuanLySanPham”
-                PhanQuyen(txtTaiKhoan, Quyen);
-                //Xử lý phương thức phân quyền
-                Session["TaiKhoan"] = tv;
+                return Content(msg.ToString());
             }
-            return Content(msg,"text/plain");
+            return Content(msg.ToString());
 
         }
         //public JsonResult CheckValidUser(SiteUser model)

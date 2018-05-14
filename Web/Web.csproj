@@ -477,19 +477,11 @@
     <Content Include="Content\images\sub.ico" />
     <Content Include="Content\images\tick1.png" />
     <Content Include="Content\images\xiaomi-redmi-4x-400-400x460-1-400x460.png" />
-    <Content Include="Content\js\bootstrap.js" />
-    <Content Include="Content\js\classie.js" />
-    <Content Include="Content\js\easing.js" />
-    <Content Include="Content\js\easyResponsiveTabs.js" />
-    <Content Include="Content\js\jquery-2.2.3.min.js" />
-    <Content Include="Content\js\jquery.circlechart.js" />
-    <Content Include="Content\js\jquery.easy-gallery.js" />
-    <Content Include="Content\js\jquery.flexslider.js" />
-    <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\login_form.js" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\js\memenu.js" />
     <Content Include="Content\js\move-top.js" />
+    <Content Include="Content\js\plugin\bootbox.min.js" />
     <Content Include="Content\js\plugin\ckeditor\adapters\jquery.js" />
     <Content Include="Content\js\plugin\ckeditor\build-config.js" />
     <Content Include="Content\js\plugin\ckeditor\ckeditor.js" />
@@ -1773,6 +1765,7 @@
     <Content Include="Views\SanPham\SanPhamStyle1Partial.cshtml" />
     <Content Include="Views\SanPham\MenuProductLeft.cshtml" />
     <Content Include="Views\QuanLySanPham\searchProductPartial.cshtml" />
+    <Content Include="Views\SanPham\MenuLeftPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

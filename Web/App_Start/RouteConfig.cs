@@ -27,6 +27,11 @@ namespace Web
             //     defaults: new { controller = "SanPham", action = "SanPham", id = UrlParameter.Optional }
             //);
             routes.MapRoute(
+               name: "QuanLySanPham",
+               url: "ManagerProduct",
+                defaults: new { controller = "QuanLySanPham", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
                 name: "DangKy",
                 url: "register",
                  defaults: new { controller = "HomeLayout", action = "DangKy", id = UrlParameter.Optional }

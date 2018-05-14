@@ -8,6 +8,25 @@ $(function () {
 
 });
 $(document).ready(function(){
+                        $('#Delete').click(function () {
+                            var id=$(this).data('id');
+                            $.ajax({
+                                url: '/QuanLySanPham/Xoa',
+                                
+                                data: id,
+                                type: 'post',
+                                dataType:'json',
+                                success: function (result) {
+                                    if (result==true) {
+                                        bootbox.alert('Xóa Bản Ghi Thành Công');
+                                    } else {
+                                        bootbox.alert('Xóa Bản Ghi Lỗi');
+                                        return false;
+                                    }
+                                }
+                            })
+                        })
+
         $("#btnchonanh").click(function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (URL) {

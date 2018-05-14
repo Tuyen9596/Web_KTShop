@@ -5,24 +5,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/AdminLayout.cshtml";
  }
-@*@{
-    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
-}
-@grid.GetHtml(
-    tableStyle: "table table-bordered",
-    headerStyle: "gridHead",
-    footerStyle: "gridFooter",
-
-    rowStyle: "gridRow",
-    alternatingRowStyle: "gridAltRow",
-    columns: grid.Columns(
-        grid.Column("MaSP", "ID"),
-        grid.Column("TenSP", "Name"),
-        grid.Column("HinhAnh", "Hình Ảnh", format: p => @Html.Raw("<img width=\"150\" height=\"120\" src=\"../Content/images/"+p.HinhAnh+"\"")),
-        grid.Column(format: p => @Html.ActionLink("_", "ChinhSua", new {id=p.MaSP },new { @class = "fas fa-edit fa-2x" })),
-         grid.Column(format: p => @Html.ActionLink("_ ", "Xoa", new { id = p.MaSP },new { @class = "far fa-trash-alt fa-2x" }))
-        )
-)*@
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 @using (Ajax.BeginForm("searchProductPartial", new AjaxOptions { UpdateTargetId = "KQTimKiem", InsertionMode = InsertionMode.Replace }))
@@ -47,7 +29,7 @@
                     <td>Product Name</td>
                     <td>Image</td>
                     <td>Price</td>
-                    <td>Number of OutStanding</td>
+                    <td>Number </td>
                     <td></td>
                 </tr>
             </thead>
@@ -59,11 +41,20 @@
                     <td class="col-mid-1">@item.MaSP</td>
                     <td class="col-mid-2">@item.TenSP</td>
                     <td class="col-mid-2"><img src="/Content/images/@item.HinhAnh" alt="No Image" height="150" width="150" /></td>
-                    <td class="col-mid-2">@item.DonGia</td>
+                    <td class="col-mid-2">@(decimal.Parse(item.DonGia.ToString()).ToString("#,##")) VND</td>
                     <td class="col-mid-1">@item.SoLuongTon</td>
-                <td class="col-mid-1" style="">
-                    @Html.ActionLink(".", "ChinhSua", new { id = @item.MaSP }, new { @class = "fas fa-edit fa-2x" }) ||
-                    @Html.ActionLink(".", "Xoa", new { id = @item.MaSP }, new { @class = "far fa-trash-alt fa-2x" })
+                <td class="col-mid-1" id="@item.MaSP">
+                    <a href="@Url.Action("ChinhSua","QuanLySanPham",new { id = @item.MaSP })"><i class="fas fa-edit fa-2x"></i></a>
+                    @*@Html.ActionLink(".", "ChinhSua", new { id = @item.MaSP }, new { @class = "fas fa-edit fa-2x" }) ||*@
+                    @Ajax.ActionLink(".", "Xoa", new { id = @item.MaSP }, new AjaxOptions {
+                   Confirm="Bạn Có Muốn Xóa ??",
+                   OnComplete="$('#"+item.MaSP+"').parent().remove()",
+                   HttpMethod="Post"
+
+               },new { @class = "far fa-trash-alt fa-2x" })
+                    @*<a href="#" id="Delete" data-id=@item.MaSP><i class="far fa-trash-alt fa-2x"></i></a>*@
+                    <script>
+                    </script>
                 </td>
             </tr>
             }
