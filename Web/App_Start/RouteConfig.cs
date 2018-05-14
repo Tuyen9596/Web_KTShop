@@ -32,9 +32,14 @@ namespace Web
                 defaults: new { controller = "QuanLySanPham", action = "Index", id = UrlParameter.Optional }
            );
             routes.MapRoute(
+               name: "ChinhSuaSanPham",
+               url: "EditProduct-{id}",
+                defaults: new { controller = "QuanLySanPham", action = "ChinhSua", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
                 name: "DangKy",
                 url: "register",
-                 defaults: new { controller = "HomeLayout", action = "DangKy", id = UrlParameter.Optional }
+                defaults: new { controller = "HomeLayout", action = "DangKy", id = UrlParameter.Optional }
             );
             routes.MapRoute(
                name: "XemSanPham",

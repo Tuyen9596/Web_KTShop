@@ -72,12 +72,23 @@
                         @Html.Captcha(exampleCaptcha)
                         @Html.TextBox("CaptchaCode")
                     </div>
-                    <input type="submit" value="Đăng Ký">
+                    <input type="submit" value="Đăng Ký" id="btndangky">
                 </div>
                 <div class="clearfix"> </div>
             </div>
         }
     
     </div>
+@*<script>
+    $(document).ready(function () {
+        var pass1 = $('#MatKhau').val();
+        var pass2 = $('#Matkhaure').val();
+        $('#btndangky').click(function () {
+            if (pass1 != pass2)
+                alert('Mật Khẩu Không Trùng Nhau !!!');
+            return false;
+        });
+    })
+</script>*@
 <!--//content-->
 

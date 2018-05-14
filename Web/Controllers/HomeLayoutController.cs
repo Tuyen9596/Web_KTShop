@@ -44,11 +44,16 @@ namespace Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [CaptchaValidation("CaptchaCode", "exampleCaptcha", "Mã xác nhận không đúng!")]
-        public ActionResult DangKy(ThanhVien tv)
+        public ActionResult DangKy(ThanhVien tv,string Matkhaure)
         {
             //Kiem tra captcha hop le
             if(ModelState.IsValid)
             {
+                if (tv.MatKhau != Matkhaure)
+                {
+                    ViewBag.loi = "Mật Khẩu Không Khớp !!!";
+                    return View();
+                }
                 //Add 1 Thanh vien
                 tv.MaLoaiTV = 2;
                 db.ThanhVien.Add(tv);
@@ -106,27 +111,23 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Login(string user,string pass)
         {
-            int msg=0;
             var checktaikhoan = db.ThanhVien.Where(x => x.TaiKhoan == user).ToList();
             var checkMatKhau = db.ThanhVien.Where(x => x.MatKhau == pass).ToList();
             if (checktaikhoan.Count == 0)
             {
-                msg = 1;
-                return Content(msg.ToString());
+                return Content("1");
             }
             else if (checkMatKhau.Count == 0)
             {
-                msg = 2;
-                return Content(msg.ToString());
+                return Content("2");
             }
             else if(checkMatKhau.Count>0 && checktaikhoan.Count>0)
             {
-                msg = 3;
                 ThanhVien tv = db.ThanhVien.SingleOrDefault(n => n.TaiKhoan == user && n.MatKhau == pass);
                 if (tv != null)
                 {
                     //Truy cập lấy ra tất cả quyền của thành viên đó
-                    var lstQuyen = db.LoaiThanhVien_Quyen.Where(n => n.MaLoaiTV == tv.MaLoaiTV);
+                    var lstQuyen = db.LoaiThanhVien_Quyen.Where(n => n.MaLoaiTV == tv.MaLoaiTV).ToList();
                     string Quyen = "";
                     //Duyệt list quyền
                     foreach (var item in lstQuyen)
@@ -140,9 +141,9 @@ namespace Web.Controllers
                     //Xử lý phương thức phân quyền
                     Session["TaiKhoan"] = tv;
                 }
-                return Content(msg.ToString());
+                return Content("3");
             }
-            return Content(msg.ToString());
+            return Content("0");
 
         }
         //public JsonResult CheckValidUser(SiteUser model)
