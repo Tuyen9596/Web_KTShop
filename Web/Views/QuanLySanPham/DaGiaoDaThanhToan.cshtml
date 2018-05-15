@@ -23,17 +23,20 @@
     alternatingRowStyle: "gridAltRow",
     columns: grid.Columns(
         grid.Column("MaDDH", "ID"),
-        grid.Column("NgayDat", "Ngày"),
-        grid.Column("TinhTrangGiaoHang", "Status"),
+        grid.Column("NgayDat", "Date"),
+         grid.Column("TinhTrangGiaoHang", "Status"),
         grid.Column("NgayGiao", "Date"),
+         grid.Column("MaKH", "ID KH"),
+        grid.Column("UuDai", "Uu Dai"),
         grid.Column("MaKH", "ID KH"),
-        grid.Column("UuDai", "Ưu Đãi"),
-        grid.Column("DaThanhToan", "Đã Thanh Toán"),
-        grid.Column("DaHuy", "Đã Hủy"),
+        grid.Column("UuDai", "Uu Dai"),
+        grid.Column("DaThanhToan", "DaThanhToan"),
+        grid.Column("DaHuy", "Da Huy"),
         grid.Column("DaXoa", "Delete"),
         grid.Column(format: p => Html.ActionLink("Duyệt Đơn Hàng", "DuyetDonHang", new { id = p.MaDDH }))
         )
 )
+
 
 
 
