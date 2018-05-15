@@ -6,7 +6,7 @@
     Layout = "~/Views/Layout/ProductLayout.cshtml";
     IEnumerable<SanPham> lst = ViewBag.lstSP as IEnumerable<SanPham>;
 }
-@Html.Action("MenuProductLeft","SanPham");
+@Html.Action("MenuLeftPartial", "SanPham");
 <div class="col-md-9 product1">
         @foreach (var item in Model.OrderBy(x => x.DonGia))
         {

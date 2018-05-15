@@ -21,7 +21,7 @@ namespace Web.Controllers
         [ChildActionOnly]
         public ActionResult MenuLeftPartial()
         {
-            var lst=db.SanPham.OrderBy(x => x.LuotBinhChon);
+            var lst=db.SanPham.OrderBy(x => x. LuotBinhChon);
             return PartialView(lst);
         }
         //Xay dung trang xem chi tiet

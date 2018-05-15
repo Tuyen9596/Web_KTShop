@@ -48,6 +48,12 @@ namespace Web.Controllers
                 }
                 db.ChiTietPhieunhap.AddRange(ModelList);
                 db.SaveChanges();
+
+            }
+            else
+            {
+                return View();
+                ViewBag.alert = "Hãy Điền Đầy Đủ Thông Tin !!!";
             }
             return View();
         }

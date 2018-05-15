@@ -7,9 +7,9 @@
 }
 
 <ul class="nav nav-tabs">
-    <li role="presentation" class=" col-md-4"><a href="@Url.Action("ChuaThanhToan","QuanLySanPham")" style="font-size:1em;color:blue;">Chua Thanh Toan</a></li>
-    <li role="presentation" class="active col-md-4"><a href="@Url.Action("DaGiaoDaThanhToan","QuanLySanPham")" style="font-size:1em;color:blue;">Da Thanh Toan & Da Giao</a></li>
-    <li role="presentation" class="col-md-4"><a href="@Url.Action("ChuaGiao","QuanLySanPham")" style="font-size:1em;color:blue;"> Chua Giao</a></li>
+    <li role="presentation" class="col-md-4"><a href="@Url.Action("ChuaThanhToan","QuanLySanPham")" style="font-size:1em;color:blue;">Chưa Thanh Toán</a></li>
+    <li role="presentation" class="active col-md-4"><a href="@Url.Action("DaGiaoDaThanhToan","QuanLySanPham")" style="font-size:1em;color:blue;">Đã Thanh Toán & Đã Giao</a></li>
+    <li role="presentation" class="col-md-4"><a href="@Url.Action("ChuaGiao","QuanLySanPham")" style="font-size:1em;color:blue;"> Chưa Giao</a></li>
 </ul>
 @{
     WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
@@ -23,15 +23,13 @@
     alternatingRowStyle: "gridAltRow",
     columns: grid.Columns(
         grid.Column("MaDDH", "ID"),
-        grid.Column("NgayDat", "Date"),
-         grid.Column("TinhTrangGiaoHang", "Status"),
+        grid.Column("NgayDat", "Ngày"),
+        grid.Column("TinhTrangGiaoHang", "Status"),
         grid.Column("NgayGiao", "Date"),
-         grid.Column("MaKH", "ID KH"),
-        grid.Column("UuDai", "Uu Dai"),
         grid.Column("MaKH", "ID KH"),
-        grid.Column("UuDai", "Uu Dai"),
-        grid.Column("DaThanhToan", "DaThanhToan"),
-        grid.Column("DaHuy", "Da Huy"),
+        grid.Column("UuDai", "Ưu Đãi"),
+        grid.Column("DaThanhToan", "Đã Thanh Toán"),
+        grid.Column("DaHuy", "Đã Hủy"),
         grid.Column("DaXoa", "Delete"),
         grid.Column(format: p => Html.ActionLink("Duyệt Đơn Hàng", "DuyetDonHang", new { id = p.MaDDH }))
         )

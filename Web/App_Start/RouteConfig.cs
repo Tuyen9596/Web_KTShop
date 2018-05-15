@@ -27,6 +27,26 @@ namespace Web
             //     defaults: new { controller = "SanPham", action = "SanPham", id = UrlParameter.Optional }
             //);
             routes.MapRoute(
+          name: "BrowserOder",
+          url: "Browser-oder-{id}",
+           defaults: new { controller = "QuanLySanPham", action = "DuyetDonHang", id = UrlParameter.Optional }
+      );
+            routes.MapRoute(
+           name: "ChuaGiao_ThanhToan",
+           url: "Did-give-paid",
+            defaults: new { controller = "QuanLySanPham", action = "DaGiaoDaThanhToan", id = UrlParameter.Optional }
+       );
+            routes.MapRoute(
+            name: "ChuaThanhToan",
+            url: "not-give",
+             defaults: new { controller = "QuanLySanPham", action = "ChuaGiao", id = UrlParameter.Optional }
+        );
+            routes.MapRoute(
+              name: "ChuaGiao",
+              url: "Unpaid",
+               defaults: new { controller = "QuanLySanPham", action = "ChuaThanhToan", id = UrlParameter.Optional }
+          );
+            routes.MapRoute(
                name: "QuanLySanPham",
                url: "ManagerProduct",
                 defaults: new { controller = "QuanLySanPham", action = "Index", id = UrlParameter.Optional }
