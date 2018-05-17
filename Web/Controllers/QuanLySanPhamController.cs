@@ -83,17 +83,17 @@ namespace Web.Controllers
         }
         public ActionResult ChuaThanhToan()
         {
-            var lst = db.DonDatHang.Where(n => n.DaThanhToan == false).OrderBy(n=>n.NgayDat);
+            var lst = db.DonDatHang.Where(n => n.DaThanhToan == false).OrderBy(n=>n.NgayDat).ToList();
             return View(lst);
         }
         public ActionResult ChuaGiao()
         {
-            var lst = db.DonDatHang.Where(n => n.TinhTrangGiaoHang == false&&n.DaThanhToan==true).OrderBy(n => n.NgayDat);
+            var lst = db.DonDatHang.Where(n => n.TinhTrangGiaoHang == false&&n.DaThanhToan==true).OrderBy(n => n.NgayDat).ToList();
             return View(lst);
         }
         public ActionResult DaGiaoDaThanhToan()
         {
-            var lst = db.DonDatHang.Where(n => n.TinhTrangGiaoHang == true && n.DaThanhToan==true).OrderBy(n => n.NgayDat);
+            var lst = db.DonDatHang.Where(n => n.TinhTrangGiaoHang == true && n.DaThanhToan==true).OrderBy(n => n.NgayDat).ToList();
             return View(lst);
         }
         [ValidateInput(false)]
@@ -113,7 +113,7 @@ namespace Web.Controllers
                 return HttpNotFound();
             }
             //lay danh sach chi tiet don dat hang de hien thi
-            var lstChiTietDDH = db.ChiTietDonDatHang.Where(n => n.MaDDH == id);
+            var lstChiTietDDH = db.ChiTietDonDatHang.Where(n => n.MaDDH == id).ToList();
             ViewBag.ListChiTietDDh = lstChiTietDDH;
             return View(model);
         }
@@ -123,7 +123,7 @@ namespace Web.Controllers
             ddhupdate.DaThanhToan = ddh.DaThanhToan;
             ddhupdate.TinhTrangGiaoHang = ddh.TinhTrangGiaoHang;
             db.SaveChanges();
-            var lstChiTietDDH = db.ChiTietDonDatHang.Where(n => n.MaDDH == ddh.MaDDH);
+            var lstChiTietDDH = db.ChiTietDonDatHang.Where(n => n.MaDDH == ddh.MaDDH).ToList();
             ViewBag.ListChiTietDDh = lstChiTietDDH;
             //Gui Mail
             GuiEmail("Xac Nhan Don Hang","tuxenpham18@gmail.com","tuxenpham@gmail.com","Kissofdeath96","Thanh COng");
